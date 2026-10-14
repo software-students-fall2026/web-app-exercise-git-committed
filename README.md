@@ -4,7 +4,7 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-See instructions. Delete this line and place the Product Vision Statement here.
+A web app where users can explore different songs and get recommendations from real users instead of the algorithm.
 
 ## User stories
 
