@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="demo.css">
     <title>Sonder</title>
 </head>
 <body>
@@ -17,7 +18,9 @@
                     <h2>sonder</h2>
                 </div>
                 <h1>Welcome back</h1>
+                <p class="demo-note">Sample-data demo. Sign-in isn't connected yet. Continue as Alex without entering a password.</p>
                 <form class="login-form">
+                <fieldset disabled>
                 <input
                     type="text"
                     placeholder="Username"
@@ -30,15 +33,12 @@
                         class="login-input password-input"
                     />
                 </div>
-
-                <a href="generalFeed.html">
-                    <div class="login-buttons">
-                        <button type="submit">
-                        Log in
-                        </button>
-                    </div>
-                </a>
+                </fieldset>
+                <p><a href="generalFeed.html">Continue with sample account</a></p>
                 </form>
+                <p><a href="register.html">Register</a> · <a href="appScreen.html">Back to welcome</a></p>
             </div>
+        </main>
+    </div>
 </body>
 </html>

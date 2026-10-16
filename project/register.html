@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="demo.css">
     <title>Sonder</title>
 </head>
 <body>
@@ -17,38 +18,37 @@
                     <h2>sonder</h2>
                 </div>
                 <h1>Create your account</h1>
+                <p class="demo-note">Sample-data demo. Registration isn't connected yet. Continue as Alex without creating an account.</p>
                 <form class="login-form">
+                <fieldset disabled>
                 <input
                     type="text"
                     placeholder="Display name"
-                    className="login-input"
+                    class="login-input"
                 />
                 <input
                     type="text"
                     placeholder="Username"
-                    className="login-input"
+                    class="login-input"
                 />
                 <input
                     type="text"
                     placeholder="School email"
-                    className="login-input"
+                    class="login-input"
                 />
                 <div class="password-wrapper">
                     <input
                         type="password"
                         placeholder="Password"
-                        className="login-input password-input"
+                        class="login-input password-input"
                     />
                 </div>
-            
-                <a href="generalFeed.html">
-                    <div class="register-buttons">
-                        <button type="submit">
-                        Create account
-                        </button>
-                    </div>
-                </a>
+                </fieldset>
+                <p><a href="generalFeed.html">Continue with sample account</a></p>
                 </form>
+                <p><a href="login.html">Log in</a> · <a href="appScreen.html">Back to welcome</a></p>
             </div>
+        </main>
+    </div>
 </body>
 </html>
