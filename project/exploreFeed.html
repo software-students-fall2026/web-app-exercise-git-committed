@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Explore Sonder</title>
+  <link rel="stylesheet" href="ExploreFeed.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-wordmark">sonder</span>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item" href="#"> <span>General feed</span></a>
+        <a class="nav-item" href="#"> <span>Following</span></a>
+        <a class="nav-item" href="#" aria-current="page"> <span>Explore</span></a>
+        <a class="nav-item" href="#"> <span>Communities</span></a>
+        <a class="nav-item" href="#"> <span>Saved</span></a>
+        <a class="nav-item" href="#"> <span>Profile</span></a>
+      </nav>
+
+      <a class="btn btn-primary btn-lg" href="#">Post a song</a>
+
+      <div class="me">
+        <div>
+          <p class="me-name">ray.lin</p>
+          <p class="me-detail">@ray</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="page-header">
+        <div class="page-title">
+          <p class="overline">Explore</p>
+          <h1>Hear Songs Outside Your Circle</h1>
+        </div>
+        <div class="tools">
+          <form class="search">
+            <input type="search" placeholder="Search songs, people, communities">
+          </form>
+          <button class="icon-button">Notifications</button>
+        </div>
+      </header>
+
+      <div class="body">
+
+        <!-- Feed -->
+        <section class="feed">
+          <div class="sort">
+            <p class="sort-note">
+            </p>
+          </div>
+
+          <h2 class="date-divider"><span class="date-pill">Today Oct 14</span></h2>
+
+          <article class="post">
+            <header class="post-header">
+              <div class="post-who">
+                <p class="overline">Passed along by</p>
+                <p class="post-user">sol.mendez</p>
+                <time>Oct 14, 2026 12 min ago</time>
+              </div>
+              <button class="btn btn-secondary btn-sm">Follow</button>
+              <button class="icon-button">More</button>
+            </header>
+            <div class="song">
+              <div class="song-meta">
+                <h3 class="song-title">Kyoto</h3>
+                <p class="song-artist">Phoebe Bridgers · 3:04</p>
+              </div>
+              <button class="play-btn">Pause</button>
+            </div>
+            <p class="post-note">first song I ever played on guitar. still gets me.</p>
+            <footer class="post-footer">
+              <div class="vote">
+                <button>Upvote</button>
+                <span class="vote-count">9</span>
+                <button>Downvote</button>
+              </div>
+              <span class="comments">1 comment</span>
+              <button class="save-btn">Save</button>
+            </footer>
+          </article>
+
+          <article class="post">
+            <header class="post-header">
+              <div class="post-who">
+                <p class="overline">Passed along by</p>
+                <p class="post-user">kai.reyes</p>
+                <time>Oct 14, 2026 3h ago</time>
+              </div>
+              <button class="btn btn-secondary btn-sm">Follow</button>
+              <button class="icon-button">More</button>
+            </header>
+            <div class="song">
+              <div class="song-meta">
+                <h3 class="song-title">Sofia</h3>
+                <p class="song-artist">Clairo · 3:08</p>
+              </div>
+              <button class="play-btn">Play</button>
+            </div>
+            <p class="post-note">roller rink energy.</p>
+            <footer class="post-footer">
+              <div class="vote">
+                <button>Upvote</button>
+                <span class="vote-count">24</span>
+                <button>Downvote</button>
+              </div>
+              <span class="comments">3 comments</span>
+              <button class="save-btn">Save</button>
+            </footer>
+          </article>
+
+          <h2 class="date-divider"><span class="date-pill">Yesterday · Oct 13</span></h2>
+
+          <article class="post">
+            <header class="post-header">
+              <div class="post-who">
+                <p class="overline">Passed along by</p>
+                <p class="post-user">ana.lofi</p>
+                <time>Oct 13, 2026 9:41 PM</time>
+              </div>
+              <button class="btn btn-secondary btn-sm">Follow</button>
+              <button class="icon-button">More</button>
+            </header>
+            <div class="song">
+              <div class="song-meta">
+                <h3 class="song-title">Nobody</h3>
+                <p class="song-artist">Mitski · 3:13</p>
+              </div>
+              <button class="play-btn">Play</button>
+            </div>
+            <footer class="post-footer">
+              <div class="vote">
+                <button>Upvote</button>
+                <span class="vote-count">31</span>
+                <button>Downvote</button>
+              </div>
+              <span class="comments">6 comments</span>
+              <button class="save-btn">Save</button>
+            </footer>
+          </article>
+
+          <div class="caught-up">
+            <h2>You’re all caught up</h2>
+            <a class="btn btn-highlight btn-md" href="#">Browse communities</a>
+          </div>
+        </section>
+
+        <!-- Right side -->
+        <aside class="rail">
+          <div class="player">
+            <div class="player-meta">
+              <p class="overline">Now previewing · 30s</p>
+              <p class="player-title">Kyoto — Phoebe Bridgers</p>
+              <div class="progress">
+                <progress class="player-progress" max="30" value="12"></progress>
+                <span class="player-time">0:12 / 0:30</span>
+              </div>
+            </div>
+            <button class="player-toggle">Pause</button>
+          </div>
+
+          <section class="card">
+            <h2>Filter by sound</h2>
+            <div class="chips">
+              <button class="chip" aria-pressed="true">All</button>
+              <button class="chip">Bedroom pop</button>
+              <button class="chip">Indie</button>
+              <button class="chip">R&amp;B</button>
+              <button class="chip">Hip-hop</button>
+              <button class="chip">Jazz</button>
+              <button class="chip">K-indie</button>
+              <button class="chip">Rap</button>
+            </div>
+          </section>
+        </aside>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>
