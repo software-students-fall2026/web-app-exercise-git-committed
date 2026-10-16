@@ -1,0 +1,59 @@
+{% extends 'sonder_feed/base.html' %}
+{% from 'sonder_feed/_person.html' import person_card with context %}
+{% block title %}{{ 'General Feed' if active_page == 'feed' else 'Following' }} · Sonder{% endblock %}
+{% block content %}
+<header class="page-heading">
+  <div class="heading-copy">
+    <h1>{{ 'General Feed' if active_page == 'feed' else 'Following' }}</h1>
+    <p class="page-description">{% if active_page == 'feed' %}Posts from everyone.{% else %}Posts from the {{ following_count }} {{ 'listener' if following_count == 1 else 'listeners' }} you follow, newest first.{% endif %}</p>
+  </div>
+  <form class="search-bar" method="get" action="{{ request.path }}" role="search">
+    <label class="sr-only" for="song-query">Search songs or artists</label>
+    <input id="song-query" type="search" name="q" value="{{ query }}" maxlength="80" placeholder="Search songs or artists">
+    {% if active_page == 'feed' %}<input type="hidden" name="sort" value="{{ sort }}">{% endif %}
+    <button type="submit" class="search-submit">Search</button>
+  </form>
+</header>
+{% if preview_mode %}<p class="mobile-preview-label">Sample data · local preview</p>{% endif %}
+<div class="feed-layout">
+  <section class="feed-column" aria-label="{{ 'General feed' if active_page == 'feed' else 'Following feed' }}">
+    {% if active_page == 'feed' %}
+    <nav class="feed-tabs" aria-label="Sort feed">
+      <a class="tab {{ 'is-active' if sort == 'top' }}" href="{{ url_for('sonder_feed.feed', sort='top', q=query) }}" {% if sort == 'top' %}aria-current="true"{% endif %}>Most upvoted</a>
+      <a class="tab {{ 'is-active' if sort == 'newest' }}" href="{{ url_for('sonder_feed.feed', sort='newest', q=query) }}" {% if sort == 'newest' %}aria-current="true"{% endif %}>Newest</a>
+    </nav>
+    {% endif %}
+    {% if query %}<div class="search-description">Results for “{{ query }}” <a href="{{ request.path }}" class="text-link">Clear search</a></div>{% endif %}
+    {% if posts %}
+    <div class="post-list">{% for post in posts %}{% include 'sonder_feed/_post.html' %}{% endfor %}</div>
+    {% else %}
+    <section class="empty-state">
+      {% if query %}<h2>No songs found.</h2><p>Try another song, artist, or phrase.</p><a class="button" href="{{ request.path }}">Clear search</a>
+      {% elif active_page == 'following' and following_count == 0 %}<h2>No posts yet.</h2><p>Follow someone to see their posts here.</p><a class="button button-primary" href="#find-people">Find people</a>
+      {% else %}<h2>No posts yet.</h2>{% endif %}
+    </section>
+    {% endif %}
+    <nav class="pagination" aria-label="Feed pages">
+      {% if page > 1 %}<a class="text-link" href="{{ url_for('sonder_feed.' ~ active_page, page=page-1, q=query, sort=sort) }}">← Newer posts</a>{% endif %}
+      {% if has_next %}<a class="text-link" href="{{ url_for('sonder_feed.' ~ active_page, page=page+1, q=query, sort=sort) }}">Older posts →</a>{% endif %}
+    </nav>
+  </section>
+  <aside class="right-rail" aria-label="Music and listeners">
+    {% if active_page == 'following' %}
+    <section class="rail-card" id="your-people" aria-labelledby="following-heading">
+      <h2 id="following-heading">Following <span class="count-badge">{{ people|length }}</span></h2>
+      {% if people %}<ul class="people-list">{% for person in people %}{{ person_card(person, true) }}{% endfor %}</ul>{% else %}<p class="small-empty">You haven’t followed anyone yet.</p>{% endif %}
+    </section>
+    {% endif %}
+    <section class="rail-card" id="find-people" aria-labelledby="find-heading">
+      <h2 id="find-heading">Find people</h2>
+      <form class="people-search" action="{{ request.path }}#find-people" method="get" role="search">
+        <label class="sr-only" for="people-query">Search by name or username</label>
+        <input id="people-query" type="search" name="people_q" value="{{ people_query }}" placeholder="Name or username" maxlength="80"><button class="button button-small" type="submit">Search</button>
+      </form>
+      {% if people_query %}<p class="search-description">Results for “{{ people_query }}” <a class="text-link" href="{{ request.path }}#find-people">Clear</a></p>{% endif %}
+      {% if matches %}<ul class="people-list">{% for person in matches %}{{ person_card(person, person._id|string in followed_ids, prefix='suggested') }}{% endfor %}</ul>{% else %}<p class="small-empty">{{ 'No matching users.' if people_query else 'No new users to follow.' }}</p>{% endif %}
+    </section>
+  </aside>
+</div>
+{% endblock %}

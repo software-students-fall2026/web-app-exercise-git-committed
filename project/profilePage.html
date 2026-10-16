@@ -6,43 +6,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sonder - Profile</title>
         <link rel="stylesheet" href="profilePage.css">
+        <link rel="stylesheet" href="demo.css">
     </head>
 <body>
 
     <aside>
         <h2>sonder</h2>
 
-        <nav>
+        <nav aria-label="Main navigation">
             <ul>
+                <li><a href="appScreen.html">Welcome</a></li>
                 <li><a href="generalFeed.html">General Feed</a></li>
                 <li><a href="following.html">Following</a></li>
-                <li><a href="exploreFeed.html">Explore</a></li>
-                <li><a href="community.html">Communities</a></li>
+                <li><span class="pending">Explore (coming soon)</span></li>
+                <li><span class="pending">Communities (coming soon)</span></li>
                 <li><a href="saved.html">Saved</a></li>
-                <li><a href="profilePage.html">Profile</a></li>
+                <li><a href="profilePage.html" aria-current="page">Profile</a></li>
             </ul>
         </nav>
         
 
-        <button type="button">Post a song</button>
+        <button type="button" disabled>Post a song (coming soon)</button>
     </aside>
 
     <main>
+        <p class="demo-note">Sample data · static profile draft. Stats and songs are examples; profile actions aren't connected yet.</p>
 
         <section>
             <header>
 
-                <h1>[First Name]</h1>
-                <p>[Username]</p>
+                <h1>{{ demo_user.display_name }}</h1>
+                <p>@{{ demo_user.username }}</p>
 
                 <p>
                     Music lover. Always looking for new songs
                     and people to share them with.
                 </p>
 
-                <button type="button">Follow</button>
-                <button type="button">Message</button>
-                <button type="button">More</button>
+                <button type="button" disabled>Follow</button>
+                <button type="button" disabled>Message</button>
+                <button type="button" disabled>More</button>
             </header>
 
         
@@ -60,46 +63,42 @@
   
         <nav>
             <ul>
-                <li><a href="#">Posts</a></li>
-                <li><a href="#">Saved</a></li>
-                <li><a href="#">Communities</a></li>
-                <li><a href="#">Shares</a></li>
+                <li><a href="#posts">Posts</a></li>
+                <li><a href="saved.html">Saved</a></li>
+                <li><span class="pending">Communities (coming soon)</span></li>
+                <li><span class="pending">Shares (coming soon)</span></li>
             </ul>
         </nav>
 
    
-        <section>
+        <section id="posts">
             <h2>Posts</h2>
 
             <article>
                 <h3>Motion Sickness</h3>
                 <p>By Phoebe Bridgers</p>
 
-                <audio controls>
-                    <source src="motion-sickness.mp3" type="audio/mpeg">
-                </audio>
+                <p class="pending">Audio preview coming soon.</p>
 
                 <p>
                     the bridge at 2:14 lives in my head
                     rent free. headphones on, lights off.
                 </p>
 
-                <button type="button">Like</button>
-                <button type="button">Comment</button>
-                <button type="button">Save</button>
+                <button type="button" disabled>Like</button>
+                <button type="button" disabled>Comment</button>
+                <button type="button" disabled>Save</button>
             </article>
 
             <article>
                 <h3>Washing Machine Heart</h3>
                 <p>By Mitski</p>
 
-                <audio controls>
-                    <source src="washing-machine-heart.mp3" type="audio/mpeg">
-                </audio>
+                <p class="pending">Audio preview coming soon.</p>
 
-                <button type="button">Like</button>
-                <button type="button">Comment</button>
-                <button type="button">Save</button>
+                <button type="button" disabled>Like</button>
+                <button type="button" disabled>Comment</button>
+                <button type="button" disabled>Save</button>
             </article>
         </section>
 

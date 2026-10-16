@@ -1,0 +1,15 @@
+/* Small fixes for the connected draft; each page keeps its original layout. */
+* { box-sizing: border-box; }
+a { color: black; }
+a[aria-current] { font-weight: bold; }
+.demo-note { padding: 8px; border: 1px solid #aaa; font: 14px/1.5 Arial, sans-serif; }
+.pending { color: #555; }
+button:disabled { cursor: default; }
+fieldset { margin: 12px 0; border: 0; padding: 0; }
+input { max-width: 100%; }
+@media (max-width: 600px) {
+    body { flex-direction: column; }
+    aside { width: 100%; min-height: auto; }
+    main { padding: 16px; }
+    main > nav ul, main > section:first-of-type nav ul { flex-wrap: wrap; gap: 12px; }
+}
