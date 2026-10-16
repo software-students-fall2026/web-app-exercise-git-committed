@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Communities</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- top bar -->
+  <header>
+    <h2>Sonder</h2>
+    <a href="#">General Feed</a>
+    <a href="#">Following</a>
+    <a href="#">Explore</a>
+    <a href="#" class="current">Communities</a>
+    <a href="#">Saved</a>
+    <a href="#">Profile</a>
+  </header>
+
+  <main>
+    <p class="small">Sample data · local preview</p>
+
+    <h1>Communities</h1>
+    <p>Find your corner. Music sub-communities for every sound.</p>
+
+    <!-- search -->
+    <p>
+      <label>Search songs, people, communities: </label>
+      <input type="text">
+      <button onclick="alert('Searching...')">Search</button>
+    </p>
+
+    <!-- tabs -->
+    <p>
+      <a href="#" onclick="pickTab(this)">Your communities</a> ·
+      <a href="#" onclick="pickTab(this)" class="current" id="first-tab">Discover</a> ·
+      <a href="#" onclick="pickTab(this)">Artists</a>
+    </p>
+
+    <p><button onclick="alert('Post a song!')">Post a song</button></p>
+
+    <!-- featured community -->
+    <h2>Featured this week</h2>
+    <div class="item">
+      <div>
+        <h3>r/sadgirlhours</h3>
+        <span class="small">24.8k members · 1.2k listening now</span>
+        <p>Phoebe, Mitski, Lucy Dacus and everyone who cries in the car. This week: "songs that got you through finals."</p>
+      </div>
+      <button onclick="toggleJoin(this)">Join</button>
+    </div>
+
+    <!-- all communities -->
+    <h2>Discover communities</h2>
+
+    <div class="item">
+      <div>
+        <h3>r/bedroompop</h3>
+        <span class="small">12.4k members · 318 listening</span>
+        <p>Lo-fi crushes, DIY recordings and songs made in someone's closet.</p>
+      </div>
+      <button onclick="toggleJoin(this)">Joined</button>
+    </div>
+
+    <div class="item">
+      <div>
+        <h3>r/neosoul</h3>
+        <span class="small">9.1k members · 204 listening</span>
+        <p>D'Angelo to Daniel Caesar. Smooth, warm, a little late at night.</p>
+      </div>
+      <button onclick="toggleJoin(this)">Join</button>
+    </div>
+
+    <div class="item">
+      <div>
+        <h3>r/indiehead</h3>
+        <span class="small">31k members · 870 listening</span>
+        <p>Guitars, bedroom tapes, and the band you'll brag you heard first.</p>
+      </div>
+      <button onclick="toggleJoin(this)">Join</button>
+    </div>
+
+    <div class="item">
+      <div>
+        <h3>r/kindie</h3>
+        <span class="small">4.3k members · 96 listening</span>
+        <p>Korean indie: Hyukoh, SE SO NEON, Jannabi and new finds.</p>
+      </div>
+      <button onclick="toggleJoin(this)">Join</button>
+    </div>
+
+    <!-- artist spotlight -->
+    <h2>Artist spotlight: Mitski</h2>
+    <p class="small">Indie rock · 4.2k fans on Sonder</p>
+    <p>Japanese-American songwriter known for raw, cinematic songs about longing. Started recording as a student at SUNY Purchase; Be the Cowboy (2018) broke her wide open.</p>
+
+    <h3>Most passed-along on Sonder</h3>
+
+    <div class="item">
+      <div>
+        <strong>Washing Machine Heart</strong><br>
+        <span class="small">Be the Cowboy · 2018</span>
+      </div>
+      <button onclick="alert('Playing Washing Machine Heart')">Play</button>
+    </div>
+
+    <div class="item">
+      <div>
+        <strong>Nobody</strong><br>
+        <span class="small">Be the Cowboy · 2018</span>
+      </div>
+      <button onclick="alert('Playing Nobody')">Play</button>
+    </div>
+
+    <div class="item">
+      <div>
+        <strong>My Love Mine All Mine</strong><br>
+        <span class="small">The Land Is Inhospitable... · 2023</span>
+      </div>
+      <button onclick="alert('Playing My Love Mine All Mine')">Play</button>
+    </div>
+
+    <p>
+      <button onclick="toggleJoin(this)">Join r/mitski</button>
+      <a href="#" onclick="alert('Opening full bio')">Read full bio</a>
+    </p>
+
+    <!-- show meetups -->
+    <h2>Show meetups</h2>
+    <p class="small">Members going together to upcoming concerts</p>
+
+    <div class="item">
+      <div>
+        <h3>Mitski</h3>
+        <span class="small">Oct 24 · The Anthem · from r/sadgirlhours · 14 going</span>
+      </div>
+      <button onclick="toggleMeetup(this)">Join meetup</button>
+    </div>
+
+    <div class="item">
+      <div>
+        <h3>Clairo</h3>
+        <span class="small">Nov 8 · 9:30 Club · from r/bedroompop · 6 going</span>
+      </div>
+      <button onclick="toggleMeetup(this)">Join meetup</button>
+    </div>
+
+  </main>
+
+  <script>
+    // Changes a button between "Join" and "Joined"
+    function toggleJoin(button) {
+      if (button.innerText == "Join") {
+        button.innerText = "Joined";
+      } else if (button.innerText == "Joined") {
+        button.innerText = "Join";
+      } else if (button.innerText == "Join r/mitski") {
+        button.innerText = "Joined r/mitski";
+      } else {
+        button.innerText = "Join r/mitski";
+      }
+    }
+
+    // Changes a meetup button between "Join meetup" and "Going!"
+    function toggleMeetup(button) {
+      if (button.innerText == "Join meetup") {
+        button.innerText = "Going!";
+      } else {
+        button.innerText = "Join meetup";
+      }
+    }
+
+    // Makes the clicked tab bold
+    function pickTab(tab) {
+      document.getElementById("first-tab").classList.remove("current");
+      var links = tab.parentElement.getElementsByTagName("a");
+      for (var i = 0; i < links.length; i++) {
+        links[i].classList.remove("current");
+      }
+      tab.classList.add("current");
+    }
+  </script>
+
+</body>
+</html>
