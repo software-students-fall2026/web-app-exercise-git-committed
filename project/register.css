@@ -1,0 +1,9 @@
+.login-page {
+    display: flex;
+    width: 100%;
+    gap: 40px;
+}
+
+.left-side, .right-side{
+    flex: 1;
+}
