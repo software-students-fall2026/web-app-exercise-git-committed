@@ -3,44 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="appScreen.css">
     <link rel="stylesheet" href="demo.css">
     <title>Sonder</title>
 </head>
 <body>
-    <div class="left-side">
-        <p class="demo-note">Sample-data demo. Sign-in and registration aren't connected yet.</p>
-        <div class="logo"> 
-            <h3>SONDER</h3>
+    <div class="appscreen-page">
+        <div class="left-side">
+            <p class="demo-note">Sample-data demo. Sign-in and registration aren't connected yet.</p>
+            <div class="logo"> 
+                <h3>SONDER</h3>
+            </div>
+            <h1>Music from people, not an algorithm.</h1>
+            <p>The realization that every random stranger you pass has a life as vivid, complex, and distinct as your own. On Sonder, you hear the songs inside those lives — passed along by real listeners, with a note on why it matters.</p>
+
+
+            <a href="register.html">
+            <button class="buttonDesign reg-button" id="registerbtn">
+                Create an account
+            </button>
+            </a>
+
+            <a href="login.html">
+            <button class="buttonDesign log-button" >
+                Log In
+            </button>
+            </a>
+
+            <p class="sign-in">OR SIGN IN WITH</p>
+            <div class="continue-button">
+                <button class="buttonDesign" id="google" disabled>
+                    Continue with Google
+                </button>
+                <button class="buttonDesign" id="apple" disabled>
+                    Continue with Apple
+                </button>
+                <button class="buttonDesign" id="spotify" disabled>
+                    Continue with Spotify
+                </button>
+            </div>
+            <p><a href="generalFeed.html">Continue with sample account</a></p>
         </div>
-        <h1>Music from people, not an algorithm.</h1>
-        <p>The realization that every random stranger you pass has a life as vivid, complex, and distinct as your own. On Sonder, you hear the songs inside those lives — passed along by real listeners, with a note on why it matters.</p>
-
-        <a href="login.html">
-        <button class="log-button" >
-            Log In
-        </button>
-        </a>
-        <a href="register.html">
-        <button class="reg-button" id="registerbtn">
-            Register
-        </button>
-        </a>
-
-        <p>OR SIGN IN WITH</p>
-        <button class="continue-button" id="google" disabled>
-            Continue with Google
-        </button>
-        <button class="continue-button" id="apple" disabled>
-            Continue with Apple
-        </button>
-        <button class="continue-button" id="spotify" disabled>
-            Continue with Spotify
-        </button>
-        <p><a href="generalFeed.html">Continue with sample account</a></p>
-    </div>
-    <div class="right-side">
-        <h3>sample post</h3>
+        <div class="right-side">
+            <h3>sample post</h3>
+        </div>
     </div>
 </body>
 </html>
