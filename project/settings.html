@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sonder - Settings</title>
+        <link rel="stylesheet" href="settings.css">
+        <link rel="stylesheet" href="demo.css">
+    </head>
+<body>
+
+    <aside>
+        <h2>sonder</h2>
+
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="appScreen.html">Welcome</a></li>
+                <li><a href="generalFeed.html">General Feed</a></li>
+                <li><a href="following.html">Following</a></li>
+                <li><span class="pending">Explore (coming soon)</span></li>
+                <li><span class="pending">Communities (coming soon)</span></li>
+                <li><a href="saved.html">Saved</a></li>
+                <li><a href="profilePage.html" aria-current="page">Profile</a></li>
+            </ul>
+        </nav>
+        
+
+        <button type="button" disabled>Post a song (coming soon)</button>
+    </aside>
+
+    <main>
+        <section className = "profile_settings">
+            <h2>Profile Information</h2>
+            <h3>Profile Picture</h3>
+            <p>Has to be a JPG, PNG, or WebP file</p>
+            <input 
+            type = "file" 
+            id = "profilePicture"
+            accept = "image/jpeg, image/png, image/webp"
+            hidden
+            />
+            <button>Upload Picture</button>
+            <button>Remove</button>
+
+            <form>
+                <h3>Name</h3>
+                <input 
+                name = "Name" 
+                id = "profileName"
+                placeholder = "Name"
+                />
+                <button>Update</button>
+
+                <h3>Username</h3>
+                <input 
+                name = "Username" 
+                id = "profileUser"
+                placeholder = "Username"
+                />
+                <button>Update</button>
+
+                <h3>School</h3>
+                <input 
+                name = "School" 
+                id = "profileSchool"
+                placeholder = "School"
+                />
+                <button>Update</button>
+            </form>
+
+        </section>
+        <section className = "account_deletion">
+            <h2>Account Deletion</h2>
+            <p>This will permanently delete your account</p>
+            <button>Delete Account</button>
+        </section>
+            
+    </main>
+
+</body>
+</html>
