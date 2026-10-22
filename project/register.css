@@ -1,9 +1,48 @@
-.login-page {
+.reg-page {
     display: flex;
     width: 100%;
     gap: 40px;
+    min-height: 100vh;
+    background-color: #F6F4EF;
 }
 
 .left-side, .right-side{
     flex: 1;
+    min-width: 0;
+}
+
+.left-side{
+    background-color: #FFC9D6;
+}
+
+h1, h2{
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 800;
+    font-size: 45px;
+    line-height: 76px;
+    letter-spacing: -2.16px;
+}
+
+p, h6{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0px;
+}
+
+.buttonDesign{
+     font-family: "Instrument Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0px;
+    border-radius: 12px;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.reg-button{
+    background-color: #2D4BFF;
+    color:white;
 }
