@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonder - Saved Posts</title>
     <link rel="stylesheet" href="saved.css">
-    <link rel="stylesheet" href="demo.css">
 </head>
 
 <body>
@@ -16,24 +15,22 @@
         <h2>sonder</h2>
 
 
-        <nav aria-label="Main navigation">
+        <nav>
             <ul>
-                <li><a href="appScreen.html">Welcome</a></li>
                 <li><a href="generalFeed.html">General Feed</a></li>
                 <li><a href="following.html">Following</a></li>
-                <li><span class="pending">Explore (coming soon)</span></li>
-                <li><span class="pending">Communities (coming soon)</span></li>
-                <li><a href="saved.html" aria-current="page">Saved</a></li>
+                <li><a href="exploreFeed.html">Explore</a></li>
+                <li><a href="community.html">Communities</a></li>
+                <li><a href="saved.html">Saved</a></li>
                 <li><a href="profilePage.html">Profile</a></li>
             </ul>
         </nav>
         
 
-        <button type="button" disabled>Post a song (coming soon)</button>
+        <button type="button">Post a song</button>
     </aside>
 
     <main>
-        <p class="demo-note">Sample data · static saved-page draft. Saving, collections and playback aren't connected yet.</p>
 
         
         <header>
@@ -50,18 +47,18 @@
 
             <nav>
                 <ul>
-                    <li><a href="#saved-posts">All</a></li>
-                    <li><span class="pending">Late night (coming soon)</span></li>
-                    <li><span class="pending">Study music (coming soon)</span></li>
-                    <li><span class="pending">Running songs (coming soon)</span></li>
+                    <li><a href="#">All</a></li>
+                    <li><a href="#">Late night</a></li>
+                    <li><a href="#">Study music</a></li>
+                    <li><a href="#">Running songs</a></li>
                 </ul>
             </nav>
 
-            <button type="button" disabled>Add new collection</button>
+            <button type="button">Add new collection</button>
         </section>
 
 
-        <section id="saved-posts">
+        <section>
             <h2>Saved Posts</h2>
 
             <article>
@@ -71,15 +68,17 @@
                 <h4>Yellow</h4>
                 <p>By Coldplay</p>
 
-                <p class="pending">Audio preview coming soon.</p>
+                <audio controls>
+                    <source src="yellow.mp3" type="audio/mpeg">
+                </audio>
 
                 <p>
                     play this one with the windows down.
                 </p>
 
-                <button type="button" disabled>Like</button>
-                <button type="button" disabled>Comment</button>
-                <button type="button" disabled>Unsave</button>
+                <button type="button">Like</button>
+                <button type="button">Comment</button>
+                <button type="button">Unsave</button>
             </article>
 
             <article>
@@ -89,16 +88,18 @@
                 <h4>Good Days</h4>
                 <p>By SZA</p>
 
-                <p class="pending">Audio preview coming soon.</p>
+                <audio controls>
+                    <source src="good-days.mp3" type="audio/mpeg">
+                </audio>
 
                 <p>
                     rotating this before every exam.
                     it works, trust.
                 </p>
 
-                <button type="button" disabled>Like</button>
-                <button type="button" disabled>Comment</button>
-                <button type="button" disabled>Unsave</button>
+                <button type="button">Like</button>
+                <button type="button">Comment</button>
+                <button type="button">Unsave</button>
             </article>
         </section>
 
@@ -109,26 +110,26 @@
             <ul>
                 <li>
                     <p>Yellow - Coldplay</p>
-                    <button type="button" disabled>Play</button>
+                    <button type="button">Play</button>
                 </li>
 
                 <li>
                     <p>Motion Sickness - Phoebe Bridgers</p>
-                    <button type="button" disabled>Play</button>
+                    <button type="button">Play</button>
                 </li>
 
                 <li>
                     <p>Good Days - SZA</p>
-                    <button type="button" disabled>Play</button>
+                    <button type="button">Play</button>
                 </li>
 
                 <li>
                     <p>Ribs - Lorde</p>
-                    <button type="button" disabled>Play</button>
+                    <button type="button">Play</button>
                 </li>
             </ul>
 
-            <button type="button" disabled>Play all saved songs</button>
+            <button type="button">Play all saved songs</button>
         </section>
 
 

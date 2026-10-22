@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Following · Sonder</title>
+  <link rel="stylesheet" href="following.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="brand" href="appScreen.html" aria-label="Sonder home"><span class="wordmark">sonder</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+          <a href="generalFeed.html" class="nav-item">General Feed</a>
+          <a href="following.html" class="nav-item is-active" aria-current="page">Following</a>
+          <a href="exploreFeed.html" class="nav-item">Explore</a>
+          <a href="community.html" class="nav-item">Communities</a>
+          <a href="saved.html" class="nav-item">Saved</a>
+          <a href="profilePage.html" class="nav-item">Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <p class="preview-label">Sample posts</p>
+        <div class="viewer"><strong>Alex</strong><span>@alexonrepeat</span></div>
+      </div>
+    </aside>
+    <main id="main" class="main-content">
+      <header class="page-heading">
+        <div class="heading-copy"><h1>Following</h1><p class="page-description">Posts from people you follow.</p></div>
+        <div class="search-bar" role="search">
+          <label class="sr-only" for="song-query">Search songs or artists</label>
+          <input id="song-query" type="search" placeholder="Search songs or artists" disabled>
+          <button class="search-submit" type="button" disabled>Search</button>
+        </div>
+      </header>
+      <p class="mobile-preview-label">Sample posts</p>
+      <div class="feed-layout">
+        <section class="feed-column" aria-label="Following">
+          <div class="post-list">
+            <article class="post-card" id="pink-white">
+              <header class="post-header">
+                <span class="avatar" aria-hidden="true">M</span>
+                <div class="author-details">
+                  <strong>Mina Chen</strong>
+                  <span><time datetime="2026-10-22">Oct 22, 2026</time> · R&amp;B</span>
+                </div>
+                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
+              </header>
+              <div class="song-tile">
+                <div class="song-meta"><h2>Pink + White</h2><p>Frank Ocean</p></div>
+                <a class="play-button" href="https://open.spotify.com/track/3xKsf9qdS1CyvXSMEid6g8" target="_blank" rel="noopener noreferrer" aria-label="Listen to Pink + White on Spotify">Listen</a>
+              </div>
+              <p class="caption">been listening to this all week</p>
+              <footer class="post-footer">
+                <button class="vote-button" type="button" aria-pressed="false" disabled>
+                  <span aria-hidden="true">↑</span><span class="vote-count">2</span><span>Upvote</span>
+                </button>
+                <span class="post-footnote">@mina.mp3</span>
+              </footer>
+            </article>
+            <article class="post-card" id="dreams-theo">
+              <header class="post-header">
+                <span class="avatar" aria-hidden="true">T</span>
+                <div class="author-details">
+                  <strong>Theo James</strong>
+                  <span><time datetime="2026-10-22">Oct 22, 2026</time> · Rock</span>
+                </div>
+                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
+              </header>
+              <div class="song-tile">
+                <div class="song-meta"><h2>Dreams — 2004 Remaster</h2><p>Fleetwood Mac</p></div>
+                <a class="play-button" href="https://open.spotify.com/track/0ofHAoxe9vBkTCp2UQIavz" target="_blank" rel="noopener noreferrer" aria-label="Listen to Dreams — 2004 Remaster on Spotify">Listen</a>
+              </div>
+              <p class="caption">my roommate played this yesterday and now it&#x27;s stuck in my head</p>
+              <footer class="post-footer">
+                <button class="vote-button is-voted" type="button" aria-pressed="true" disabled>
+                  <span aria-hidden="true">↑</span><span class="vote-count">1</span><span>Upvoted</span>
+                </button>
+                <span class="post-footnote">@theo.fm</span>
+              </footer>
+            </article>
+            <article class="post-card" id="less-i-know">
+              <header class="post-header">
+                <span class="avatar" aria-hidden="true">M</span>
+                <div class="author-details">
+                  <strong>Mina Chen</strong>
+                  <span><time datetime="2026-10-21">Oct 21, 2026</time> · Alternative</span>
+                </div>
+                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
+              </header>
+              <div class="song-tile">
+                <div class="song-meta"><h2>The Less I Know The Better</h2><p>Tame Impala</p></div>
+                <a class="play-button" href="https://open.spotify.com/track/6K4t31amVTZDgR3sKmwUJJ" target="_blank" rel="noopener noreferrer" aria-label="Listen to The Less I Know The Better on Spotify">Listen</a>
+              </div>
+              <p class="caption">anyone know songs with a similar bassline?</p>
+              <footer class="post-footer">
+                <button class="vote-button" type="button" aria-pressed="false" disabled>
+                  <span aria-hidden="true">↑</span><span class="vote-count">0</span><span>Upvote</span>
+                </button>
+                <span class="post-footnote">@mina.mp3</span>
+              </footer>
+            </article>
+          </div>
+        </section>
+        <aside class="right-rail" aria-label="Listeners">
+          <section class="rail-card" aria-labelledby="following-heading">
+            <h2 id="following-heading">Following <span class="count-badge">2</span></h2>
+            <ul class="people-list">
+              <li class="person-card">
+                <div class="person-info"><h3>Mina Chen</h3><p>@mina.mp3</p></div>
+                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
+              </li>
+              <li class="person-card">
+                <div class="person-info"><h3>Theo James</h3><p>@theo.fm</p></div>
+                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
+              </li>
+            </ul>
+          </section>
+          <section class="rail-card" id="find-people" aria-labelledby="find-heading">
+            <h2 id="find-heading">Find people</h2>
+            <div class="people-search" role="search">
+              <label class="sr-only" for="people-query">Search by name or username</label>
+              <input id="people-query" type="search" placeholder="Name or username" disabled>
+              <button class="button" type="button" disabled>Search</button>
+            </div>
+            <ul class="people-list">
+              <li class="person-card">
+                <div class="person-info"><h3>Noor Ali</h3><p>@noor.wav</p></div>
+                <button class="button follow-button" type="button" disabled>Follow</button>
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
