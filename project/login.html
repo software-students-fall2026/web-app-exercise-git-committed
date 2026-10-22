@@ -12,18 +12,20 @@
     <title>Sonder</title>
 </head>
 <body>
-     <div class="page login-page">
-        <main class="login-content">
-            <div class="left-side">
-                <h1>"play this one with the windows down."</h1>
+    <div class="login-page">
+        <div class="left-side">
+            <h1>"play this one with the windows down."</h1>
+            <h6>jules.wav passed along</h6>
+            <p>Ivy - Frank Ocean · Oct 12,2026</p>
+        </div>
+        <div class="right-side">
+            <div class="logo">
+                <h2>sonder</h2>
             </div>
-            <div class="right-side">
-                <div class="logo">
-                    <h2>sonder</h2>
-                </div>
-                <h1>Welcome back</h1>
-                <p class="demo-note">Sample-data demo. Sign-in isn't connected yet. Continue as Alex without entering a password.</p>
-                <form class="login-form">
+            <h1>Welcome back</h1>
+            <p>Pick up where your people left off</p>
+            <p class="demo-note">Sample-data demo. Sign-in isn't connected yet. Continue as Alex without entering a password.</p>
+            <form class="login-form">
                 <fieldset disabled>
                 <input
                     type="text"
@@ -38,11 +40,25 @@
                     />
                 </div>
                 </fieldset>
+                <button class="buttonDesign log-button" >
+                    Log In
+                </button>
+                <p class="sign-in">OR</p>
+                <div class="continue-button">
+                    <button class="buttonDesign" id="google" disabled>
+                        Continue with Google
+                    </button>
+                    <button class="buttonDesign" id="apple" disabled>
+                        Continue with Apple
+                    </button>
+                    <button class="buttonDesign" id="spotify" disabled>
+                        Continue with Spotify
+                    </button>
+                </div>
                 <p><a href="generalFeed.html">Continue with sample account</a></p>
-                </form>
-                <p><a href="register.html">Register</a> · <a href="appScreen.html">Back to welcome</a></p>
-            </div>
-        </main>
+            </form>
+            <p>New to Sonder? <a href="register.html">Create an account</a> </p>
+        </div>
     </div>
 </body>
 </html>
