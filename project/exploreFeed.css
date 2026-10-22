@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.app {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: white;
+    border-right: 1px solid #ddd;
+}
+
+.logo-wordmark {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo-tagline {
+    display: block;
+    font-size: 12px;
+    color: gray;
+}
+
+.nav {
+    margin: 20px 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.nav-item[aria-current="page"] {
+    background-color: #eee;
+}
+
+.me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.main {
+    flex: 1;
+    padding: 30px;
+    min-width: 0;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.tools,
+.search,
+.sort,
+.sort-note,
+.post-header,
+.song,
+.post-footer,
+.vote,
+.comments,
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.body {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.feed {
+    width: 600px;
+}
+
+.rail {
+    flex: 1;
+}
+
+.sort {
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.post,
+.card,
+.caught-up {
+    background-color: white;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.post-who,
+.song-meta {
+    flex: 1;
+}
+
+.song {
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin: 15px 0;
+}
+
+.save-btn {
+    margin-left: auto;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+}
+
+.player-meta {
+    flex: 1;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chip[aria-pressed="true"] {
+    background-color: #ccc;
+}
+
+.caught-up {
+    text-align: center;
+}
+
+button {
+    padding: 8px 15px;
+    cursor: pointer;
+}
