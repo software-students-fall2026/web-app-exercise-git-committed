@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communities</title>
+    <link rel="stylesheet" href="community.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>sonder</h2>
+        <small>MUSIC FROM REAL PEOPLE</small>
+
+        <a href="generalFeed.html" class="btn-link">General Feed</a>
+        <a href="following.html" class="btn-link">Following</a>
+        <a href="exploreFeed.html" class="btn-link">Explore</a>
+        <a href="community.html" class="btn-link">Communities</a>
+        <a href="saved.html" class="btn-link">Saved</a>
+        <a href="profilePage.html" class="btn-link">Profile</a>
+        <a href="createPost.html" class="btn-link">Post a song</a>
+
+        <p>user.name</p>
+        <small>@user · 47 posts</small>
+    </div>
+
+    <div class="main">
+
+        <small>COMMUNITIES</small>
+        <h1>Find your corner</h1>
+        <p>Music sub-communities for every sound. Talk artists, swap songs, plan show nights.</p>
+
+        <input id="search" type="text" placeholder="Search communities..." oninput="searchCommunities()">
+
+        <p>
+          <button type="button" onclick="alert('Your communities')">Your communities</button>
+          <button type="button" onclick="alert('Discover')">Discover</button>
+          <button type="button" onclick="alert('Artists')">Artists</button>
+        </p>
+
+        <div class="layout">
+
+            <!-- Communities column -->
+            <div>
+                <div class="featured">
+                    <span class="icon">#</span>
+                    <button type="button" class="join" onclick="join(this)">Join</button>
+
+                    <h2>r/sadgirlhours</h2>
+                    <p>24.8k members · 1.2k listening now</p>
+                    <p>For Phoebe Bridgers, Mitski, Lucy Dacus and songs that help you through hard days.</p>
+                </div>
+
+                <div class="communities" id="communityList">
+
+                    <div class="card">
+                        <span class="icon">#</span>
+                        <h3>r/bedroompop</h3>
+                        <small>12.4k members · 318 listening</small>
+                        <p>Lo-fi music, DIY recordings and songs made in someone's bedroom.</p>
+                        <button type="button" class="join" onclick="join(this)">Join</button>
+                    </div>
+
+                    <div class="card">
+                        <span class="icon">#</span>
+                        <h3>r/neosoul</h3>
+                        <small>9.1k members · 204 listening</small>
+                        <p>Smooth, warm soul music for late nights.</p>
+                        <button type="button" class="join" onclick="join(this)">Join</button>
+                    </div>
+
+                    <div class="card">
+                        <span class="icon">#</span>
+                        <h3>r/indiehead</h3>
+                        <small>31k members · 870 listening</small>
+                        <p>Guitars, indie bands and new discoveries.</p>
+                        <button type="button" class="join" onclick="join(this)">Join</button>
+                    </div>
+
+                    <div class="card">
+                        <span class="icon">#</span>
+                        <h3>r/kindie</h3>
+                        <small>4.3k members · 96 listening</small>
+                        <p>Korean indie music and new artists.</p>
+                        <button type="button" class="join" onclick="join(this)">Join</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right side -->
+            <div>
+                <div class="panel">
+                    <small>ARTIST SPOTLIGHT</small>
+                    <p>
+                        <span class="artist"></span>
+                        <strong style="font-size: 24px">Mitski</strong>
+                    </p>
+
+                    <p>Indie rock · 4.2k fans</p>
+                    <p>Japanese-American songwriter known for raw, cinematic songs about longing. Started recording as a 
+                      student at SUNY Purchase; Be the Cowboy (2018) broke her wide open.</p>
+                    <h3>Popular songs</h3>
+
+                    <p>Washing Machine Heart
+                        <button type="button" onclick="playSong('Washing Machine Heart')">Play</button>
+                    </p>
+
+                    <p>Nobody
+                      <button type="button" onclick="playSong('Nobody')">Play</button>
+                    </p>
+
+                    <p>My Love Mine All Mine
+                      <button type="button" onclick="playSong('My Love Mine All Mine')">Play</button>
+                    </p>
+
+                    <button type="button" onclick="alert('Joined r/mitski!')">Join r/mitski</button>
+
+                    <button type="button" onclick="alert('Mitski artist biography')">Read full bio</button>
+                </div>
+
+                <div class="panel">
+                    <h2>Show meetups</h2>
+                    <p>Members going to upcoming concerts</p>
+
+                    <h3>Mitski</h3>
+                    <h4>OCT 24</h4>
+                    <p>The Anthem</p>
+                    <p>14 going</p>
+                    <button type="button" onclick="joinMeetup(this)">Join meetup</button>
+
+                    <h3>Clairo</h3>
+                    <h4>NOV 8</h4>
+                    <p>9:30 Club</p>
+                    <p>6 going</p>
+                    <button type="button" onclick="joinMeetup(this)">Join meetup</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function join(button) {
+            if (button.innerText === "Join") {
+                button.innerText = "Joined";
+            } else {
+                button.innerText = "Join";
+            }
+        }
+
+        function searchCommunities() {
+            var searchText = document.getElementById("search").value.toLowerCase();
+
+            var cards = document.querySelectorAll("#communityList .card");
+
+            cards.forEach(function(card) {
+                if (card.innerText.toLowerCase().includes(searchText)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function joinMeetup(button) {
+            if (button.innerText === "Join meetup") {
+                button.innerText = "Going!";
+            } else {
+                button.innerText = "Join meetup";
+            }
+        }
+    </script>
+
+</body>
+</html>

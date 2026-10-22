@@ -1,0 +1,468 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f5f5;
+    color: #000;
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+h1, h2, h3, h4, p {
+    margin: 0;
+}
+
+button {
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+small {
+    font-size: 12px;
+    color: #777;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    padding: 16px 24px;
+    background: #fff;
+    border-right: 1px solid #dcdcdc;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.sidebar > small {
+    display: block;
+    margin: 2px 4px 16px;
+    font-weight: 500;
+}
+
+.btn-link {
+    display: block;
+    padding: 16px;
+    margin-bottom: 4px;
+    color: #000;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.btn-link:hover,
+.btn-link[href="community.html"] {
+    background: #e8e8e8;
+}
+
+.btn-link[href="community.html"] {
+    font-weight: 600;
+}
+
+.btn-link[href="createPost.html"] {
+    margin-top: 24px;
+    background: #3d3d3d;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+}
+
+.btn-link[href="createPost.html"]:hover {
+    background: #000;
+}
+
+/* username box */
+.sidebar > p {
+    margin-top: auto;
+    padding: 8px 16px;
+    background: #e8e8e8;
+    font-weight: 600;
+}
+
+.sidebar > p + small {
+    padding: 0 16px 8px;
+    background: #e8e8e8;
+}
+
+.main {
+    position: relative;
+    margin-left: 250px;
+    padding: 48px;
+}
+
+.main > small {
+    display: block;
+    font-weight: 500;
+    color: #555;
+}
+
+.main > h1 {
+    margin: 6px 0;
+    font-size: 48px;
+}
+
+.main > h1 + p {
+    max-width: 560px;
+    color: #777;
+    font-size: 17px;
+}
+
+#search {
+    position: absolute;
+    top: 56px;
+    right: 48px;
+    width: 340px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    font: inherit;
+    outline: none;
+}
+
+/* tabs */
+.main > p:has(button) {
+    display: flex;
+    gap: 6px;
+    margin: 32px 0 24px;
+}
+
+.main > p:has(button) button {
+    padding: 12px 18px;
+    background: transparent;
+    border: none;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.main > p:has(button) button:hover {
+    background: #e8e8e8;
+}
+
+/* on discover tab */
+.main > p:has(button) button:nth-child(2) {
+    background: #111;
+    color: #fff;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+}
+
+/* Featured this week */
+.featured {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;   
+    column-gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 24px;
+    background: #1b1b1b;
+    color: #fff;
+}
+
+.featured::before {
+    content: "FEATURED THIS WEEK";
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 12px;
+    font-weight: 600;
+    color: #bdbdbd;
+}
+
+.featured .icon {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 56px;
+    height: 56px;
+    background: #e2e2e2;
+    border-color: #e2e2e2;
+}
+
+.featured h2 {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.featured h2 + p {
+    grid-column: 2;
+    grid-row: 3;
+    font-size: 12px;
+    color: #d4d4d4;
+}
+
+.featured .join {
+    grid-column: 3;
+    grid-row: 1 / 4;
+    background: #d2d2d2;
+    color: #111;
+}
+
+.featured .join:hover {
+    background: #fff;
+}
+
+.featured p:last-child {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin-top: 16px;
+    font-size: 16px;
+    color: #eaeaea;
+}
+
+/* community cards */
+
+.communities {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    column-gap: 14px;
+    min-height: 230px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+}
+
+.card .icon {
+    grid-row: 1 / 3;
+}
+
+.card h3 {
+    grid-column: 2;
+    align-self: end;
+    font-size: 22px;
+}
+
+.card small {
+    grid-column: 2;
+}
+
+.card p {
+    grid-column: 1 / -1;
+    margin-top: 18px;
+    color: #777;
+    font-size: 16px;
+}
+
+.card .join {
+    grid-column: 1 / -1;
+    justify-self: end;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: #e8e8e8;
+    border: 1.5px solid #111;
+    font-size: 26px;
+}
+
+.join {
+    padding: 9px 20px;
+    background: #3d3d3d;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+}
+
+.join:hover {
+    background: #000;
+}
+
+/* Right column panels */
+.panel {
+    margin-bottom: 24px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+}
+
+.panel h2 {
+    font-size: 26px;
+}
+
+.panel h3 {
+    font-size: 16px;
+}
+
+.panel small {
+    display: block;
+    font-weight: 600;
+    color: #555;
+}
+
+/* artist picture + name */
+.panel small + p {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.artist {
+    flex: none;
+    width: 68px;
+    height: 68px;
+    background: #d4d4d4;
+}
+
+/* genre line */
+.panel small + p + p {
+    font-size: 13px;
+    color: #777;
+}
+
+/* bio */
+.panel small + p + p + p {
+    margin: 14px 0 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* song rows */
+.panel p:has(> button) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid #e8e8e8;
+    font-weight: 500;
+}
+
+/* play buttons */
+.panel p > button {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    background: #3d3d3d;
+    color: #fff;
+    border: none;
+    font-size: 0;
+}
+
+.panel p > button::before {
+    content: "\25B6";
+    font-size: 12px;
+}
+
+.panel p > button:hover {
+    background: #000;
+}
+
+/* join + bio */
+.panel > button {
+    margin: 16px 12px 0 0;
+    padding: 10px 18px;
+    background: #3d3d3d;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+}
+
+.panel > button:hover {
+    background: #000;
+}
+
+.panel > button[onclick*="biography"] {
+    padding-left: 0;
+    background: transparent;
+    color: #111;
+}
+
+.panel > button[onclick*="biography"]:hover {
+    background: transparent;
+    text-decoration: underline;
+}
+
+/* show meetups */
+.panel:last-child {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;   
+    grid-auto-flow: dense;                  
+    column-gap: 16px;
+    align-items: center;
+}
+
+.panel:last-child > h2 {
+    grid-column: 1 / -1;
+}
+
+.panel:last-child > h3,
+.panel:last-child > p {
+    grid-column: 2;
+}
+
+.panel:last-child > h3 {
+    font-size: 17px;
+}
+
+.panel:last-child > p {
+    font-size: 14px;
+    color: #777;
+}
+
+.panel:last-child > p:nth-child(2) {
+    grid-column: 1 / -1;
+    margin-bottom: 12px;
+}
+
+/* date */
+.panel:last-child > h4 {
+    grid-column: 1;
+    grid-row: span 3;
+    width: 56px;
+    padding: 8px 4px;
+    background: #e8e8e8;
+    border: 1.5px solid #111;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+/* join meetup button */
+.panel:last-child > button {
+    grid-column: 3;
+    grid-row: span 3;
+    margin: 0;
+    background: transparent;
+    color: #111;
+    border: 1.5px solid #111;
+    font-weight: 500;
+}
+
+.panel:last-child > button:hover {
+    background: #111;
+    color: #fff;
+}
+
+/* gap before the second meetup */
+.panel:last-child > button + h3,
+.panel:last-child > button + h3 + h4,
+.panel:last-child > button:last-child {
+    margin-top: 18px;
+}
