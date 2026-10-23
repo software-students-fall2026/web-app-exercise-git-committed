@@ -1,4 +1,9 @@
-import flask
+from flask import Blueprint, render_template
 
-app = flask.Flask(__name__)
-app.secret_key = 'super secret string'  # Change this!
+login_bp = Blueprint("login", __name__)
+
+
+@login_bp.get("/login")
+@login_bp.get("/login.html")
+def login():
+    return render_template("login.html")
