@@ -1,135 +1,145 @@
+{% set title = 'Following' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Following · Sonder</title>
-  <link rel="stylesheet" href="following.css">
+  <title>{{ title }} · Sonder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('stylesheet', filename='sonder') }}">
 </head>
 <body>
+  {% macro icon(name) -%}<span class="icon icon-{{ name }}" aria-hidden="true"><img src="{{ url_for('image', filename='sonder/' ~ name ~ '.svg') }}" alt=""></span>{%- endmacro %}
+  {% macro avatar(name, picture_url='', classes='') -%}
+    {% set picture = picture_url|profile_picture_url %}
+    {% if picture %}<img class="avatar {{ classes }}" src="{{ picture }}" alt="">{% else %}<span class="avatar {{ classes }}" aria-hidden="true">{{ name[:1] }}</span>{% endif %}
+  {%- endmacro %}
+  {% macro follow_button(user_id, is_following) %}
+    {% if current_user.is_authenticated %}
+      <form class="follow-form" method="post" action="{{ url_for('general_feed.follow', user_id=user_id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="return_to" value="{{ request.full_path }}">
+        <button class="button follow-button {{ 'is-following' if is_following else '' }}" name="action" value="{{ 'unfollow' if is_following else 'follow' }}">{{ 'Unfollow' if is_following else 'Follow' }}</button>
+      </form>
+    {% else %}
+      <a class="button follow-button" href="{{ url_for('login') }}">Log in to follow</a>
+    {% endif %}
+  {% endmacro %}
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="app-layout">
     <aside class="sidebar">
-      <a class="brand" href="appScreen.html" aria-label="Sonder home"><span class="wordmark">sonder</span></a>
+      <a class="brand" href="{{ url_for('welcome') }}" aria-label="Sonder home"><span class="wordmark">sonder</span><span class="overline brand-tagline">Music from real people</span></a>
       <nav class="main-nav" aria-label="Main navigation">
-          <a href="generalFeed.html" class="nav-item">General Feed</a>
-          <a href="following.html" class="nav-item is-active" aria-current="page">Following</a>
-          <a href="exploreFeed.html" class="nav-item">Explore</a>
-          <a href="community.html" class="nav-item">Communities</a>
-          <a href="saved.html" class="nav-item">Saved</a>
-          <a href="profilePage.html" class="nav-item">Profile</a>
+        {% for endpoint, label, image in [('general_feed.general_feed', 'General feed', 'house'), ('general_feed.following', 'Following', 'following'), ('explore', 'Explore', 'explore'), ('communities', 'Communities', 'communities'), ('saved', 'Saved', 'saved'), ('profile', 'Profile', 'profile')] %}
+          <a href="{{ url_for(endpoint) }}" class="nav-item {{ 'is-active' if request.endpoint == endpoint else '' }}" {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ icon(image) }}<span>{{ label }}</span></a>
+        {% endfor %}
+        <a href="{{ url_for('settings.settings') }}" class="nav-item {{ 'is-active' if request.blueprint == 'settings' else '' }}" {% if request.blueprint == 'settings' %}aria-current="page"{% endif %}><span class="nav-symbol" aria-hidden="true">⚙</span><span>Settings</span></a>
       </nav>
+      <a class="button button-primary sidebar-post" href="{{ url_for('create_post') }}">Post a song</a>
       <div class="sidebar-footer">
-        <p class="preview-label">Sample posts</p>
-        <div class="viewer"><strong>Alex</strong><span>@alexonrepeat</span></div>
+        {% if current_user.is_authenticated %}
+          <a class="viewer" href="{{ url_for('settings.settings') }}">{{ avatar(current_user.display_name or current_user.username, current_user.profile_picture_url) }}<span class="viewer-meta"><strong>{{ current_user.display_name or current_user.username }}</strong><span>@{{ current_user.username }}</span></span></a>
+        {% else %}
+          <a class="button" href="{{ url_for('login') }}">Log in</a>
+        {% endif %}
       </div>
     </aside>
     <main id="main" class="main-content">
       <header class="page-heading">
-        <div class="heading-copy"><h1>Following</h1><p class="page-description">Posts from people you follow.</p></div>
-        <div class="search-bar" role="search">
-          <label class="sr-only" for="song-query">Search songs or artists</label>
-          <input id="song-query" type="search" placeholder="Search songs or artists" disabled>
-          <button class="search-submit" type="button" disabled>Search</button>
+        <div class="heading-copy">
+          <p class="overline">{{ title }}</p>
+          <h1>{{ 'From your people' if following_only else 'What everyone’s passing along' }}</h1>
+          <p class="page-description">{{ 'Posts from the listeners you follow.' if following_only else 'Every post from every listener. Upvote the picks you’d pass on.' }}</p>
+        </div>
+        <div class="heading-tools">
+          <form class="search-bar" role="search" method="get">
+            <label class="sr-only" for="song-query">Search songs or artists</label>
+            {{ icon('search') }}
+            <input id="song-query" name="q" type="search" value="{{ query }}" maxlength="150" placeholder="Search songs or artists">
+            <input type="hidden" name="sort" value="{{ sort }}"><input type="hidden" name="people" value="{{ people_query }}">
+            <button class="search-submit">Search</button>
+          </form>
+          <span class="notification-icon" role="img" aria-label="Notifications">{{ icon('bell') }}</span>
         </div>
       </header>
-      <p class="mobile-preview-label">Sample posts</p>
-      <div class="feed-layout">
-        <section class="feed-column" aria-label="Following">
+      <div class="feed-layout {{ 'following-layout' if following_only else '' }}">
+        <section class="feed-column" aria-label="{{ title }}">
+          {% if following_only %}
+            <section class="rail-card following-strip" aria-label="People you follow">
+              <h2 class="strip-heading">{{ icon('headphones') }} People you follow</h2>
+              <ul class="following-people">
+                {% for person in following_users[:5] %}
+                  <li><span class="avatar-ring">{{ avatar(person.display_name or person.username, person.profile_picture_url) }}</span><strong>{{ person.display_name or person.username }}</strong><span>@{{ person.username }}</span></li>
+                {% else %}<li class="small-empty">You aren't following anyone yet. Find someone in the people search.</li>{% endfor %}
+              </ul>
+            </section>
+          {% endif %}
+          <nav class="feed-tabs" aria-label="Sort feed">
+            <a class="tab {{ 'is-active' if sort == 'newest' else '' }}" href="{{ url_for(request.endpoint, q=query, people=people_query, sort='newest') }}">Newest</a>
+            <a class="tab {{ 'is-active' if sort == 'top' else '' }}" href="{{ url_for(request.endpoint, q=query, people=people_query, sort='top') }}">Most upvoted</a>
+          </nav>
+          {% if not following_only %}
+            <div class="composer">{{ avatar(current_user.username if current_user.is_authenticated else '♪', current_user.profile_picture_url if current_user.is_authenticated else '') }}<p>What song is stuck in your head today?</p><a class="button button-primary" href="{{ url_for('create_post') }}">Post a song</a></div>
+          {% endif %}
+          {% if query %}<p class="search-description">Results for “{{ query }}”</p>{% endif %}
           <div class="post-list">
-            <article class="post-card" id="pink-white">
-              <header class="post-header">
-                <span class="avatar" aria-hidden="true">M</span>
-                <div class="author-details">
-                  <strong>Mina Chen</strong>
-                  <span><time datetime="2026-10-22">Oct 22, 2026</time> · R&amp;B</span>
+            {% for post in posts %}
+              <article class="post-card" id="post-{{ post._id }}">
+                <header class="post-header">
+                  {{ avatar(post.author_name, post.author_picture_url) }}
+                  <div class="author-details"><span class="overline">Passed along by</span><strong>{{ post.author_name }}</strong><span>{{ post.date_label }}</span></div>
+                  {% if post.can_follow %}{{ follow_button(post.author_id, post.is_following) }}{% endif %}
+                  <details class="post-menu"><summary aria-label="Post options">{{ icon('more') }}</summary><div>{% if post.spotify_url %}<a href="{{ post.spotify_url }}" target="_blank" rel="noopener noreferrer">Open in Spotify</a>{% endif %}<a href="#find-people">Find people</a></div></details>
+                </header>
+                <div class="song-tile">
+                  <span class="song-art">{{ icon('music') }}</span>
+                  <div class="song-meta"><h2>{{ post.song_title }}</h2><p>{{ post.artist }}</p></div>
+                  {% if post.spotify_url %}<a class="play-button" href="{{ post.spotify_url }}" target="_blank" rel="noopener noreferrer" aria-label="Listen to {{ post.song_title }} on Spotify">{{ icon('play') }}<span class="sr-only">Listen</span></a>{% else %}<span class="play-button" aria-disabled="true" title="No song link attached">{{ icon('play') }}</span>{% endif %}
                 </div>
-                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
-              </header>
-              <div class="song-tile">
-                <div class="song-meta"><h2>Pink + White</h2><p>Frank Ocean</p></div>
-                <a class="play-button" href="https://open.spotify.com/track/3xKsf9qdS1CyvXSMEid6g8" target="_blank" rel="noopener noreferrer" aria-label="Listen to Pink + White on Spotify">Listen</a>
-              </div>
-              <p class="caption">been listening to this all week</p>
-              <footer class="post-footer">
-                <button class="vote-button" type="button" aria-pressed="false" disabled>
-                  <span aria-hidden="true">↑</span><span class="vote-count">2</span><span>Upvote</span>
-                </button>
-                <span class="post-footnote">@mina.mp3</span>
-              </footer>
-            </article>
-            <article class="post-card" id="dreams-theo">
-              <header class="post-header">
-                <span class="avatar" aria-hidden="true">T</span>
-                <div class="author-details">
-                  <strong>Theo James</strong>
-                  <span><time datetime="2026-10-22">Oct 22, 2026</time> · Rock</span>
-                </div>
-                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
-              </header>
-              <div class="song-tile">
-                <div class="song-meta"><h2>Dreams — 2004 Remaster</h2><p>Fleetwood Mac</p></div>
-                <a class="play-button" href="https://open.spotify.com/track/0ofHAoxe9vBkTCp2UQIavz" target="_blank" rel="noopener noreferrer" aria-label="Listen to Dreams — 2004 Remaster on Spotify">Listen</a>
-              </div>
-              <p class="caption">my roommate played this yesterday and now it&#x27;s stuck in my head</p>
-              <footer class="post-footer">
-                <button class="vote-button is-voted" type="button" aria-pressed="true" disabled>
-                  <span aria-hidden="true">↑</span><span class="vote-count">1</span><span>Upvoted</span>
-                </button>
-                <span class="post-footnote">@theo.fm</span>
-              </footer>
-            </article>
-            <article class="post-card" id="less-i-know">
-              <header class="post-header">
-                <span class="avatar" aria-hidden="true">M</span>
-                <div class="author-details">
-                  <strong>Mina Chen</strong>
-                  <span><time datetime="2026-10-21">Oct 21, 2026</time> · Alternative</span>
-                </div>
-                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
-              </header>
-              <div class="song-tile">
-                <div class="song-meta"><h2>The Less I Know The Better</h2><p>Tame Impala</p></div>
-                <a class="play-button" href="https://open.spotify.com/track/6K4t31amVTZDgR3sKmwUJJ" target="_blank" rel="noopener noreferrer" aria-label="Listen to The Less I Know The Better on Spotify">Listen</a>
-              </div>
-              <p class="caption">anyone know songs with a similar bassline?</p>
-              <footer class="post-footer">
-                <button class="vote-button" type="button" aria-pressed="false" disabled>
-                  <span aria-hidden="true">↑</span><span class="vote-count">0</span><span>Upvote</span>
-                </button>
-                <span class="post-footnote">@mina.mp3</span>
-              </footer>
-            </article>
+                {% if post.audio_url %}<audio controls preload="none" src="{{ post.audio_url }}">Your browser does not support audio playback.</audio>{% endif %}
+                {% if post.caption %}<p class="caption">{{ post.caption }}</p>{% endif %}
+                <footer class="post-footer">
+                  {% if current_user.is_authenticated %}
+                    <form method="post" action="{{ url_for('general_feed.vote', post_id=post._id) }}">
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="return_to" value="{{ request.full_path }}">
+                      <button class="vote-button {{ 'is-voted' if post.is_voted else '' }}" name="action" value="{{ 'unvote' if post.is_voted else 'vote' }}" aria-pressed="{{ 'true' if post.is_voted else 'false' }}">{{ icon('upvote') }}<span class="vote-count">{{ post.vote_count }}</span>{{ icon('downvote') }}<span class="sr-only">{{ 'Remove upvote' if post.is_voted else 'Upvote' }}</span></button>
+                    </form>
+                  {% else %}<a class="vote-button" href="{{ url_for('login') }}">{{ icon('upvote') }}<span class="vote-count">{{ post.vote_count }}</span><span class="sr-only">Log in to vote</span></a>{% endif %}
+                  <a class="discussion-link" href="{{ url_for('communities') }}">{{ icon('comments') }}<span>Discuss</span></a>
+                  {% if post.username %}<span class="post-footnote">@{{ post.username }}</span>{% endif %}
+                  <a class="saved-link" href="{{ url_for('saved') }}" aria-label="Open saved songs">{{ icon('bookmark') }}</a>
+                </footer>
+              </article>
+            {% else %}<div class="empty-state"><h2>No posts found</h2><p>{{ 'Try a different search.' if query else ('Follow someone to see their songs here.' if following_only else 'No songs have been posted yet.') }}</p></div>{% endfor %}
           </div>
+          <nav class="pagination" aria-label="Feed pages">
+            {% if page > 1 %}<a class="button" href="{{ url_for(request.endpoint, q=query, people=people_query, sort=sort, page=page-1) }}">Previous</a>{% endif %}
+            {% if has_next %}<a class="button" href="{{ url_for(request.endpoint, q=query, people=people_query, sort=sort, page=page+1) }}">Next</a>{% endif %}
+          </nav>
         </section>
         <aside class="right-rail" aria-label="Listeners">
-          <section class="rail-card" aria-labelledby="following-heading">
-            <h2 id="following-heading">Following <span class="count-badge">2</span></h2>
-            <ul class="people-list">
-              <li class="person-card">
-                <div class="person-info"><h3>Mina Chen</h3><p>@mina.mp3</p></div>
-                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
-              </li>
-              <li class="person-card">
-                <div class="person-info"><h3>Theo James</h3><p>@theo.fm</p></div>
-                <button class="button follow-button is-following" type="button" disabled>Unfollow</button>
-              </li>
+          <section class="rail-card">
+            <header class="rail-heading"><h2>{{ 'From your people' if following_only else 'Top voted' }}</h2><p>Ranked by upvotes from these posts.</p></header>
+            <ul class="song-list">
+              {% for post in (posts|sort(attribute='vote_count', reverse=true))[:4] %}
+                <li class="song-row"><span class="small-art">{{ icon('music-small') }}</span><div class="person-info"><h3>{{ post.song_title }}</h3><p>{{ post.artist }} · ↑ {{ post.vote_count }}</p></div>{% if post.spotify_url %}<a class="play-button play-small" href="{{ post.spotify_url }}" target="_blank" rel="noopener noreferrer" aria-label="Listen to {{ post.song_title }} on Spotify">{{ icon('play-small') }}</a>{% endif %}</li>
+              {% else %}<li class="small-empty">Songs will appear here when people post.</li>{% endfor %}
             </ul>
           </section>
-          <section class="rail-card" id="find-people" aria-labelledby="find-heading">
-            <h2 id="find-heading">Find people</h2>
-            <div class="people-search" role="search">
+          <section class="rail-card" id="find-people">
+            <header class="rail-heading"><h2>Find people</h2><p>Discover what other listeners are sharing.</p></header>
+            <form class="people-search" role="search" method="get">
               <label class="sr-only" for="people-query">Search by name or username</label>
-              <input id="people-query" type="search" placeholder="Name or username" disabled>
-              <button class="button" type="button" disabled>Search</button>
-            </div>
+              <input id="people-query" name="people" type="search" value="{{ people_query }}" maxlength="100" placeholder="Name or username">
+              <input type="hidden" name="q" value="{{ query }}"><input type="hidden" name="sort" value="{{ sort }}"><button class="button">Search</button>
+            </form>
             <ul class="people-list">
-              <li class="person-card">
-                <div class="person-info"><h3>Noor Ali</h3><p>@noor.wav</p></div>
-                <button class="button follow-button" type="button" disabled>Follow</button>
-              </li>
+              {% for person in people %}<li class="person-card">{{ avatar(person.display_name or person.username, person.profile_picture_url) }}<div class="person-info"><h3>{{ person.display_name or person.username }}</h3><p>@{{ person.username }}</p></div>{{ follow_button(person._id, person.is_following) }}</li>{% else %}<li class="small-empty">No people found.</li>{% endfor %}
             </ul>
           </section>
+          {% if following_only %}<section class="rail-card"><header class="rail-heading"><h2>Following <span class="count-badge">{{ following_count }}</span></h2></header><ul class="people-list">{% for person in following_users %}<li class="person-card"><div class="person-info"><h3>{{ person.display_name or person.username }}</h3><p>@{{ person.username }}</p></div>{{ follow_button(person._id, true) }}</li>{% else %}<li class="small-empty">You aren't following anyone yet.</li>{% endfor %}</ul></section>{% endif %}
         </aside>
       </div>
     </main>
