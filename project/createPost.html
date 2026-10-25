@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonder Create a Post</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="createPost.css">
+</head>
+
+<body>
+
+    <aside>
+        <div class="logo">
+            <h2>sonder</h2>
+            <p class="overline">MUSIC FROM REAL PEOPLE</p>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="generalFeed.html">General feed</a></li>
+                <li><a href="following.html">Following</a></li>
+                <li><a href="exploreFeed.html">Explore</a></li>
+                <li><a href="community.html">Communities</a></li>
+                <li><a href="saved.html">Saved</a></li>
+                <li><a href="profilePage.html">Profile</a></li>
+            </ul>
+        </nav>
+
+        <a class="btn btn-primary btn-block" href="createPost.html">Post a song</a>
+
+        {% if current_user.is_authenticated %}
+        <div class="me">
+            <span class="avatar"></span>
+            <div>
+                <strong>{{ current_user.display_name }}</strong>
+                <span>@{{ current_user.username }}</span>
+            </div>
+        </div>
+        {% endif %}
+    </aside>
+
+    <main>
+
+        <header class="page-header">
+            <p class="overline">CREATE A POST</p>
+            <h1>Pass a song along</h1>
+            <p class="lead">Pick a song, say why it matters, and share it with the people who'd get it.</p>
+        </header>
+
+        <div class="body">
+
+            <form class="card post-form" id="postForm" action="/create-post" method="post" enctype="multipart/form-data">
+
+                <section>
+                    <h3><span class="step">1</span> Choose a song</h3>
+
+                    <label class="field">
+                        <span>Song title</span>
+                        <input type="text" id="songTitle" name="song_title" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Artist</span>
+                        <input type="text" id="artist" name="artist" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Spotify link <em>optional</em></span>
+                        <input type="url" name="spotify_url" placeholder="https://open.spotify.com/track/">
+                    </label>
+
+                    <label class="dropzone">
+                        <input type="file" id="audio" name="audio" accept=".mp3,.m4a" hidden>
+                        <strong id="audioName">or upload an audio clip</strong>
+                        <span>MP3 or M4A, up to 10 MB</span>
+                    </label>
+                </section>
+
+                <section>
+                    <h3><span class="step">2</span> Why this song? <span class="tag">OPTIONAL</span></h3>
+                    <div class="note-field">
+                        <textarea id="caption" name="caption" maxlength="200" placeholder="Say what moment hooks you, or when you listen."></textarea>
+                        <span class="count"><span id="captionCount">0</span> / 200</span>
+                    </div>
+                    <p class="hint">A sentence or two is plenty. Leave it blank and the post shows just the song.</p>
+                </section>
+
+                <section>
+                    <h3><span class="step">3</span> Share to a community <span class="tag">OPTIONAL</span></h3>
+                    <div class="chips">
+                        <label>
+                            <input type="radio" name="community_id" value="" data-name="" checked>
+                            <span>No community</span>
+                        </label>
+                        {% for community in communities or [] %}
+                        <label>
+                            <input type="radio" name="community_id" value="{{ community._id }}" data-name="{{ community.name }}">
+                            <span>{{ community.name }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <div class="actions">
+                    <button class="btn btn-primary" type="submit">Pass it along</button>
+                </div>
+            </form>
+
+            <div class="rail">
+                <div class="preview-label">
+                    <span class="pill">LIVE PREVIEW</span>
+                    <span>This is how your post will look</span>
+                </div>
+
+                <article class="post">
+                    <div class="post-head">
+                        <span class="avatar"></span>
+                        <div>
+                            <p class="overline">PASSED ALONG BY</p>
+                            <strong>{% if current_user.is_authenticated %}{{ current_user.display_name }}{% endif %}</strong>
+                            <span>Just now</span>
+                            <span id="previewCommunity" hidden></span>
+                        </div>
+                    </div>
+
+                    <div class="song">
+                        <span class="art"></span>
+                        <div class="meta">
+                            <h4 id="previewTitle">Song title</h4>
+                            <span id="previewArtist">Artist</span>
+                        </div>
+                        <span class="play" aria-hidden="true">&#9654;</span>
+                    </div>
+
+                    <p class="post-note" id="previewCaption"></p>
+
+                    <div class="post-foot">
+                        <span class="vote">Upvotes 0</span>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const form = document.getElementById("postForm");
+        const caption = document.getElementById("caption");
+
+        function updatePreview() {
+            document.getElementById("captionCount").textContent = caption.value.length;
+            document.getElementById("previewCaption").textContent = caption.value;
+            document.getElementById("previewTitle").textContent = document.getElementById("songTitle").value || "Song title";
+            document.getElementById("previewArtist").textContent = document.getElementById("artist").value || "Artist";
+
+            const community = document.querySelector("input[name=community_id]:checked");
+            const name = community ? community.dataset.name : "";
+            const label = document.getElementById("previewCommunity");
+            label.textContent = name;
+            label.hidden = !name;
+
+            const file = document.getElementById("audio").files[0];
+            document.getElementById("audioName").textContent = file ? file.name : "or upload an audio clip";
+        }
+
+        form.addEventListener("input", updatePreview);
+        updatePreview();
+    </script>
+
+</body>
+</html>
