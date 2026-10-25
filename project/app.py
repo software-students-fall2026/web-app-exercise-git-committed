@@ -7,10 +7,12 @@ from bson.errors import InvalidId
 from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, render_template, send_from_directory
 from flask_login import LoginManager, UserMixin
+from routes.register import register_bp
 
 load_dotenv()
 
 app = Flask(__name__, template_folder=".")
+app.register_blueprint(register_bp)
 project_folder = Path(app.root_path)
 
 app.config.update(
@@ -53,9 +55,9 @@ def load_user(user_id):
 
 
 @app.get("/")
-@app.get("/appScreen.html")
+@app.get("/LandingPage.html")
 def welcome():
-    return render_template("appScreen.html")
+    return render_template("LandingPage.html")
 
 
 @app.get("/login")

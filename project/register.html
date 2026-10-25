@@ -22,30 +22,48 @@
                 <h2>sonder</h2>
             </div>
             <h1>Create your account</h1>
-            <form class="login-form">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}" role="alert"> {{ message }}</p>
+                {% endfor %}
+            {% endwith %}
+            <form class="login-form" action="/api/register" method="POST">
                 <input
                     type="text"
+                    name = 'display_name'
                     placeholder="Display name"
                     class="login-input"
+                    autocomplete="name"
+                    required
                 />
                 <input
                     type="text"
+                    name = 'username'
                     placeholder="Username"
                     class="login-input"
+                    autocomplete="username"
+                    required
                 />
                 <input
                     type="text"
+                    name = 'email'
                     placeholder="School email"
                     class="login-input"
+                    autocomplete="email"
+                    required
                 />
                 <div class="password-wrapper">
                     <input
                         type="password"
+                        name="password"
                         placeholder="Password"
                         class="login-input password-input"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
                     />
                 </div>
-                <button class="buttonDesign reg-button" >
+                <button type="submit" class="buttonDesign reg-button" >
                     Create account
                 </button>
             </form>
