@@ -8,11 +8,15 @@ from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, render_template, send_from_directory
 from flask_login import LoginManager, UserMixin
 from routes.register import register_bp
+from routes.profilePage import profile_bp
+from routes.savedPosts import saved_bp
 
 load_dotenv()
 
 app = Flask(__name__, template_folder=".")
 app.register_blueprint(register_bp)
+app.register_blueprint(profile_bp)
+app.register_blueprint(saved_bp)
 project_folder = Path(app.root_path)
 
 app.config.update(
@@ -94,19 +98,6 @@ def explore():
 @app.get("/createPost.html")
 def create_post():
     return render_template("createPost.html")
-
-
-@app.get("/profile")
-@app.get("/profilePage.html")
-def profile():
-    return render_template("profilePage.html")
-
-
-@app.get("/saved")
-@app.get("/saved.html")
-def saved():
-    return render_template("saved.html")
-
 
 @app.get("/communities")
 @app.get("/community.html")
