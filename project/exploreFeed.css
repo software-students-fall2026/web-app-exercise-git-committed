@@ -1,7 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #f6f4ef;
 }
 
 .app {
@@ -9,146 +13,113 @@ body {
 }
 
 .sidebar {
-    width: 200px;
+    width: 220px;
     min-height: 100vh;
     padding: 20px;
     background-color: white;
-    border-right: 1px solid #ddd;
-}
-
-.logo-wordmark {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.logo-tagline {
-    display: block;
-    font-size: 12px;
-    color: gray;
-}
-
-.nav {
-    margin: 20px 0;
+    border-right: 1px solid #d9d5cc;
 }
 
 .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
+    display: block;
+    padding: 12px;
     color: black;
     text-decoration: none;
 }
 
 .nav-item[aria-current="page"] {
-    background-color: #eee;
-}
-
-.me {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
+    background-color: #e3e8ff;
 }
 
 .main {
     flex: 1;
-    padding: 30px;
-    min-width: 0;
+    padding: 40px;
 }
 
 .page-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 20px;
-}
-
-.tools,
-.search,
-.sort,
-.sort-note,
-.post-header,
-.song,
-.post-footer,
-.vote,
-.comments,
-.progress {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin-bottom: 30px;
 }
 
 .body {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     align-items: flex-start;
 }
 
 .feed {
-    width: 600px;
+    width: 620px;
 }
 
 .rail {
     flex: 1;
 }
 
-.sort {
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
 .post,
 .card,
+.player,
 .caught-up {
     background-color: white;
-    padding: 20px;
-    margin: 15px 0;
+    border: 1px solid #d9d5cc;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.post {
+    border: 2px solid #16131a;
+    box-shadow: 4px 4px 0 #16131a;
+}
+
+.post-header,
+.song,
+.post-footer,
+.vote,
+.progress,
+.player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .post-who,
-.song-meta {
+.song-meta,
+.player-meta {
     flex: 1;
 }
 
 .song {
-    background-color: #f5f5f5;
-    padding: 10px;
-    margin: 15px 0;
+    background-color: #f6f4ef;
+    border-radius: 10px;
+    padding: 12px;
 }
 
 .save-btn {
     margin-left: auto;
 }
 
-.player {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #333;
-    color: white;
-    padding: 15px;
-}
-
-.player-meta {
-    flex: 1;
-}
-
 .chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
 .chip[aria-pressed="true"] {
-    background-color: #ccc;
-}
-
-.caught-up {
-    text-align: center;
+    background-color: #e8ff5a;
 }
 
 button {
-    padding: 8px 15px;
+    padding: 10px 18px;
+    border: 1px solid #16131a;
+    border-radius: 30px;
+    background-color: white;
     cursor: pointer;
+}
+
+.btn-primary,
+.play-btn {
+    background-color: #3679ff;
+    color: white;
 }
