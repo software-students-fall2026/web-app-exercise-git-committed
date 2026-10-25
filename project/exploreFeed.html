@@ -2,182 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Explore Sonder</title>
-  <link rel="stylesheet" href="ExploreFeed.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonder Explore</title>
+  <link rel="stylesheet" href="exploreFeed.css">
 </head>
 <body>
   <div class="app">
 
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">
         <span class="logo-wordmark">sonder</span>
+        <span class="logo-tagline">MUSIC FROM REAL PEOPLE</span>
       </div>
 
       <nav class="nav">
-        <a class="nav-item" href="#"> <span>General feed</span></a>
-        <a class="nav-item" href="#"> <span>Following</span></a>
-        <a class="nav-item" href="#" aria-current="page"> <span>Explore</span></a>
-        <a class="nav-item" href="#"> <span>Communities</span></a>
-        <a class="nav-item" href="#"> <span>Saved</span></a>
-        <a class="nav-item" href="#"> <span>Profile</span></a>
+        <a class="nav-item" href="generalFeed.html">General feed</a>
+        <a class="nav-item" href="following.html">Following</a>
+        <a class="nav-item" href="exploreFeed.html" aria-current="page">Explore</a>
+        <a class="nav-item" href="community.html">Communities</a>
+        <a class="nav-item" href="saved.html">Saved</a>
+        <a class="nav-item" href="profilePage.html">Profile</a>
       </nav>
 
-      <a class="btn btn-primary btn-lg" href="#">Post a song</a>
+      <a class="btn btn-primary btn-lg" href="createPost.html">Post a song</a>
 
+      {% if current_user.is_authenticated %}
       <div class="me">
         <div>
-          <p class="me-name">ray.lin</p>
-          <p class="me-detail">@ray</p>
+          <p class="me-name">{{ current_user.display_name }}</p>
+          <p class="me-detail">@{{ current_user.username }}</p>
         </div>
       </div>
+      {% endif %}
     </aside>
 
-    <!-- Main -->
     <main class="main">
       <header class="page-header">
         <div class="page-title">
           <p class="overline">Explore</p>
-          <h1>Hear Songs Outside Your Circle</h1>
+          <h1>Hear outside your circle</h1>
+          <p class="page-description">Songs from people you don't follow yet, sorted newest to oldest with no algorithm and no ranking.</p>
         </div>
         <div class="tools">
-          <form class="search">
-            <input type="search" placeholder="Search songs, people, communities">
+          <form class="search" action="exploreFeed.html" method="get">
+            <input type="search" name="q" value="{{ query or '' }}" placeholder="Search songs, people, communities">
           </form>
-          <button class="icon-button">Notifications</button>
         </div>
       </header>
 
       <div class="body">
 
-        <!-- Feed -->
         <section class="feed">
           <div class="sort">
-            <p class="sort-note">
-            </p>
+            <p class="sort-note">{{ posts|length }} post{{ '' if posts|length == 1 else 's' }} from the last 7 days</p>
           </div>
 
-          <h2 class="date-divider"><span class="date-pill">Today Oct 14</span></h2>
+          {% set ns = namespace(day=None) %}
+          {% for post in posts %}
+          {% set day = post.created_at.strftime('%b %d, %Y') %}
+          {% if day != ns.day %}
+          <h2 class="date-divider"><span class="date-pill">{{ day }}</span></h2>
+          {% set ns.day = day %}
+          {% endif %}
 
-          <article class="post">
+          <article class="post" id="post-{{ post._id }}">
             <header class="post-header">
               <div class="post-who">
                 <p class="overline">Passed along by</p>
-                <p class="post-user">sol.mendez</p>
-                <time>Oct 14, 2026 12 min ago</time>
+                <p class="post-user">{{ post.author.display_name }}</p>
+                <time datetime="{{ post.created_at.isoformat() }}">{{ post.created_at.strftime('%b %d, %Y at %I:%M %p') }}</time>
+                {% if post.community %}
+                <span class="post-community">{{ post.community.name }}</span>
+                {% endif %}
               </div>
-              <button class="btn btn-secondary btn-sm">Follow</button>
-              <button class="icon-button">More</button>
+              <form action="/follow" method="post">
+                <input type="hidden" name="following_id" value="{{ post.author_id }}">
+                <button class="btn btn-secondary btn-sm" type="submit">Follow</button>
+              </form>
             </header>
+
             <div class="song">
               <div class="song-meta">
-                <h3 class="song-title">Kyoto</h3>
-                <p class="song-artist">Phoebe Bridgers · 3:04</p>
+                <h3 class="song-title">{{ post.song_title }}</h3>
+                <p class="song-artist">{{ post.artist }}</p>
               </div>
-              <button class="play-btn">Pause</button>
+              {% if post.audio_url %}
+              <audio controls preload="none" src="{{ post.audio_url }}"></audio>
+              {% elif post.spotify_url %}
+              <a class="play-btn" href="{{ post.spotify_url }}" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
+              {% endif %}
             </div>
-            <p class="post-note">first song I ever played on guitar. still gets me.</p>
+
+            {% if post.caption %}
+            <p class="post-note">{{ post.caption }}</p>
+            {% endif %}
+
             <footer class="post-footer">
-              <div class="vote">
-                <button>Upvote</button>
-                <span class="vote-count">9</span>
-                <button>Downvote</button>
-              </div>
-              <span class="comments">1 comment</span>
-              <button class="save-btn">Save</button>
+              <form class="vote" action="/posts/{{ post._id }}/vote" method="post">
+                <button type="submit" aria-pressed="{{ 'true' if post.upvoted else 'false' }}">Upvote</button>
+                <span class="vote-count">{{ post.upvote_count }}</span>
+              </form>
+              <form action="/posts/{{ post._id }}/save" method="post">
+                <button class="save-btn" type="submit" aria-pressed="{{ 'true' if post.saved else 'false' }}">{{ 'Saved' if post.saved else 'Save' }}</button>
+              </form>
             </footer>
           </article>
-
-          <article class="post">
-            <header class="post-header">
-              <div class="post-who">
-                <p class="overline">Passed along by</p>
-                <p class="post-user">kai.reyes</p>
-                <time>Oct 14, 2026 3h ago</time>
-              </div>
-              <button class="btn btn-secondary btn-sm">Follow</button>
-              <button class="icon-button">More</button>
-            </header>
-            <div class="song">
-              <div class="song-meta">
-                <h3 class="song-title">Sofia</h3>
-                <p class="song-artist">Clairo · 3:08</p>
-              </div>
-              <button class="play-btn">Play</button>
-            </div>
-            <p class="post-note">roller rink energy.</p>
-            <footer class="post-footer">
-              <div class="vote">
-                <button>Upvote</button>
-                <span class="vote-count">24</span>
-                <button>Downvote</button>
-              </div>
-              <span class="comments">3 comments</span>
-              <button class="save-btn">Save</button>
-            </footer>
-          </article>
-
-          <h2 class="date-divider"><span class="date-pill">Yesterday · Oct 13</span></h2>
-
-          <article class="post">
-            <header class="post-header">
-              <div class="post-who">
-                <p class="overline">Passed along by</p>
-                <p class="post-user">ana.lofi</p>
-                <time>Oct 13, 2026 9:41 PM</time>
-              </div>
-              <button class="btn btn-secondary btn-sm">Follow</button>
-              <button class="icon-button">More</button>
-            </header>
-            <div class="song">
-              <div class="song-meta">
-                <h3 class="song-title">Nobody</h3>
-                <p class="song-artist">Mitski · 3:13</p>
-              </div>
-              <button class="play-btn">Play</button>
-            </div>
-            <footer class="post-footer">
-              <div class="vote">
-                <button>Upvote</button>
-                <span class="vote-count">31</span>
-                <button>Downvote</button>
-              </div>
-              <span class="comments">6 comments</span>
-              <button class="save-btn">Save</button>
-            </footer>
-          </article>
-
+          {% else %}
           <div class="caught-up">
-            <h2>You’re all caught up</h2>
-            <a class="btn btn-highlight btn-md" href="#">Browse communities</a>
+            <h2>Nothing new to explore yet</h2>
+            <p>No posts from people you don't follow in the last 7 days.</p>
+            <a class="btn btn-highlight btn-md" href="community.html">Browse communities</a>
           </div>
+          {% endfor %}
+
+          {% if posts %}
+          <div class="caught-up">
+            <h2>You're all caught up</h2>
+            <p>That's every post from the last 7 days. Older picks live in Communities.</p>
+            <a class="btn btn-highlight btn-md" href="community.html">Browse communities</a>
+          </div>
+          {% endif %}
         </section>
 
-        <!-- Right side -->
         <aside class="rail">
-          <div class="player">
-            <div class="player-meta">
-              <p class="overline">Now previewing · 30s</p>
-              <p class="player-title">Kyoto — Phoebe Bridgers</p>
-              <div class="progress">
-                <progress class="player-progress" max="30" value="12"></progress>
-                <span class="player-time">0:12 / 0:30</span>
-              </div>
-            </div>
-            <button class="player-toggle">Pause</button>
-          </div>
-
           <section class="card">
-            <h2>Filter by sound</h2>
+            <h2>Filter by community</h2>
+            <p>Still newest first. Filters never re-rank.</p>
             <div class="chips">
-              <button class="chip" aria-pressed="true">All</button>
-              <button class="chip">Bedroom pop</button>
-              <button class="chip">Indie</button>
-              <button class="chip">R&amp;B</button>
-              <button class="chip">Hip-hop</button>
-              <button class="chip">Jazz</button>
-              <button class="chip">K-indie</button>
-              <button class="chip">Rap</button>
+              <a class="chip" href="exploreFeed.html" aria-pressed="{{ 'false' if selected_community else 'true' }}">All</a>
+              {% for community in communities or [] %}
+              <a class="chip" href="exploreFeed.html?community={{ community._id }}" aria-pressed="{{ 'true' if selected_community == community._id|string else 'false' }}">{{ community.name }}</a>
+              {% endfor %}
             </div>
           </section>
         </aside>
