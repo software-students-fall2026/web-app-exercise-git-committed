@@ -8,16 +8,23 @@ from bson.errors import InvalidId
 from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, render_template, request, send_from_directory, session
 from flask_login import LoginManager, UserMixin, current_user
+from jinja2 import ChoiceLoader, DictLoader
 
 from routes.generalFeed import general_feed_bp
 from routes.settings import settings_bp
 from routes.register import register_bp
+from routes.savedPosts import saved_bp, saved_posts
 
 load_dotenv()
 
 app = Flask(__name__, template_folder=".")
 app.register_blueprint(register_bp)
+app.register_blueprint(saved_bp)
 project_folder = Path(app.root_path)
+app.jinja_loader = ChoiceLoader([
+    app.jinja_loader,
+    DictLoader({"savedPosts.html": '{% extends "SavedPosts.html" %}'}),
+])
 
 app.config.update(
     SECRET_KEY=os.getenv("SECRET_KEY") or secrets.token_hex(32),
@@ -118,13 +125,12 @@ def profile():
     return render_template("profilePage.html")
 
 
-@app.get("/saved")
 @app.get("/saved.html")
 @app.get("/SavedPost.html")
 @app.get("/SavedPosts.html")
 @app.get("/savedPosts.html")
 def saved():
-    return render_template("SavedPosts.html")
+    return saved_posts()
 
 
 @app.get("/communities")
