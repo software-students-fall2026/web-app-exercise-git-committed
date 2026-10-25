@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #f6f4ef;
+}
+
+aside {
+    width: 220px;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: white;
+    border-right: 1px solid #d9d5cc;
+}
+
+aside nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside nav li {
+    margin-bottom: 20px;
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+}
+
+main header {
+    margin-bottom: 30px;
+}
+
+main header p {
+    color: #5e5966;
+}
+
+.columns {
+    display: flex;
+    gap: 40px;
+}
+
+form {
+    width: 600px;
+    background-color: white;
+    border: 1px solid #d9d5cc;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+form section {
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #16131a;
+    border-radius: 10px;
+}
+
+textarea {
+    height: 150px;
+}
+
+button {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background-color: #3679ff;
+    color: white;
+}
+
+.right {
+    flex: 1;
+}
+
+.tips {
+    background-color: white;
+    border: 1px solid #d9d5cc;
+    border-radius: 16px;
+    padding: 24px;
+}
