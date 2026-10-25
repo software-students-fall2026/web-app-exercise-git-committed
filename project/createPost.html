@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonder - Create a Post</title>
+    <title>Sonder Create a Post</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,10 +13,9 @@
 
 <body>
 
-    
     <aside>
         <div class="logo">
-            <h2>Sonder</h2>
+            <h2>sonder</h2>
             <p class="overline">MUSIC FROM REAL PEOPLE</p>
         </div>
 
@@ -45,10 +44,11 @@
     </aside>
 
     <main>
+
         <header class="page-header">
             <p class="overline">CREATE A POST</p>
             <h1>Pass a song along</h1>
-            <p class="lead">Pick a song, say why it matters, and share it with the people who’d get it.</p>
+            <p class="lead">Pick a song, say why it matters, and share it with the people who'd get it.</p>
         </header>
 
         <div class="body">
@@ -70,13 +70,13 @@
 
                     <label class="field">
                         <span>Spotify link <em>optional</em></span>
-                        <input type="url" name="spotify_url" placeholder="https://open.spotify.com/track/...">
+                        <input type="url" name="spotify_url" placeholder="https://open.spotify.com/track/">
                     </label>
 
                     <label class="dropzone">
                         <input type="file" id="audio" name="audio" accept=".mp3,.m4a" hidden>
                         <strong id="audioName">or upload an audio clip</strong>
-                        <span>MP3 or M4A up to 10 MB</span>
+                        <span>MP3 or M4A, up to 10 MB</span>
                     </label>
                 </section>
 
@@ -122,7 +122,8 @@
                         <div>
                             <p class="overline">PASSED ALONG BY</p>
                             <strong>{% if current_user.is_authenticated %}{{ current_user.display_name }}{% endif %}</strong>
-                            <span id="previewMeta">Just now</span>
+                            <span>Just now</span>
+                            <span id="previewCommunity" hidden></span>
                         </div>
                     </div>
 
@@ -138,18 +139,9 @@
                     <p class="post-note" id="previewCaption"></p>
 
                     <div class="post-foot">
-                        <span class="vote">&uarr; 0</span>
+                        <span class="vote">Upvotes 0</span>
                     </div>
                 </article>
-
-                <div class="card tips">
-                    <h3>Good posts</h3>
-                    <ul>
-                        <li>Say what moment hooks you</li>
-                        <li>Add when or where you listen</li>
-                        <li>Keep it to a sentence or two</li>
-                    </ul>
-                </div>
             </div>
 
         </div>
@@ -167,11 +159,14 @@
 
             const community = document.querySelector("input[name=community_id]:checked");
             const name = community ? community.dataset.name : "";
-            document.getElementById("previewMeta").textContent = name ? "Just now · " + name : "Just now";
+            const label = document.getElementById("previewCommunity");
+            label.textContent = name;
+            label.hidden = !name;
 
             const file = document.getElementById("audio").files[0];
             document.getElementById("audioName").textContent = file ? file.name : "or upload an audio clip";
         }
+
         form.addEventListener("input", updatePreview);
         updatePreview();
     </script>
