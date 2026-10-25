@@ -1,18 +1,42 @@
+body{
+    margin: 0;
+    height:100vh;
+    overflow: hidden;
+    background:#F6F4EF;
+    color:#16131A;
+    font-family: "Instrument Sans", sans-serif;
+}
 .appscreen-page{
     display: flex;
-    width: 100%;
-    gap: 40px;
-    min-height: 100vh;
-    background-color: #F6F4EF;
+    align-items: center;
+    width:95%;
+    gap: 20px;
+    height: 100vh;
+    padding: 32px 0;
+    margin: 0 auto;
 }
 
 .left-side, .right-side{
-    flex: 1;
+    flex:1;
     min-width: 0;
 }
 
+.left-side{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
 .right-side{
-    background-color: #2D4BFF;
+    position: relative;
+    background: #2D4BFF;
+    overflow: hidden;
+    border: 2px solid;
+    border-color: #2D4BFF;
+    height: 90%;
+    min-width: 0;
+    border-radius: 50px;
+    margin-bottom: 35px;
 }
 
 h1{
@@ -21,6 +45,17 @@ h1{
     font-size: 45px;
     line-height: 76px;
     letter-spacing: -2.16px;
+    max-width: 570px;
+    margin: 0 0 8px;
+}
+
+.bio{
+    max-width: 520px;
+    margin: 0 0 20px;
+    color: #696675;
+    font-size: 12px;
+    font-weight:400;
+    line-height: 28px;
 }
 
 .logo{
@@ -30,14 +65,14 @@ h1{
     line-height: 16px;
     letter-spacing: 0.96px;
     background-color: #E8FF5A;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    width: 90px;
-    height: 30px;
-    border-radius: 999px;
+    border-radius: 99px;
     border-color: #16131A;
+    border: 2px solid;
+    padding: 4px 13px;
+    margin-bottom: 16px;
 }
 
 p{
@@ -50,41 +85,214 @@ p{
 }
 
 .buttonDesign{
-     font-family: "Instrument Sans", sans-serif;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Instrument Sans", sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;
     letter-spacing: 0px;
     color: #16131A;
-    border-radius: 12px;
-    padding: 12px 24px;
+    border: 1px solid;
+    border-color: #16131A;
+    border-radius: 999px;
+    padding: 0 18px;
     cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    min-height: 40px;
 }
 
 .reg-button{
+    margin-bottom: 20px;
     background-color: #2D4BFF;
     color:white;
+    border-color: #2D4BFF;
+    
 }
 
-.continue-button{
-    outline-color: #16131A;
+.log-button{
+    color:#16131A;
+    background: transparent;
+}
+
+.post{
+    position: absolute;
+    left: 7%;
+    width: 80%;
+    padding: 24px 20px 20px;
+    overflow: hidden;
+    border: 1px solid;
+    border-color: #16131A;
+    border-radius: 11px;
+    background: #FFFFFF;
+    box-shadow: 3px 3px 0 rgba(22,19,26,0.85);
+}
+
+.post-one{
+    top:7%;
+    transform: rotate(-2.5deg);
+}
+
+.post-two{
+    top:52%;
+    left:7%;
+    transform: rotate(2.5deg);
+}
+
+.algo-tag{
+    position: absolute;
+    top: 4%;
+    left:61%;
+    z-index: 5;
+    padding: 8px 13px;
+    border: 1px solid;
+    border-color: #16131A;
+    border-radius: 999px;
+    background: #E8FF5A;
+    color: #16131A;
+    font-size: 11px;
+    white-space: nowrap;
+    transform: rotate(3deg);
+    font-weight: 600;
+}
+.pink{
+    background: #FFC4D2;
+}
+
+.green{
+    background:#E8FF5A
+}
+
+.user{
+    width: 29px;
+    height: 29px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.user-info{
     display:flex;
-    gap:10px;
-}
-
-.continue-button button{
     flex:1;
+    flex-direction: column;
+    color:#16131A;
+    min-width: 0;
+    gap:0;
 }
 
-.sign-in{
-    display:flex;
+.passed{
+    display: block;
+    margin: 0;
+    font-size: 7px;
+    color:#696675;
+    letter-spacing: 0.2px;
+}
+
+.user-info h4{
+    margin:0;
+    font-size:10px;
+    font-weight: 700;
+}
+
+.user-info p{
+    margin: 0;
+    font-size:8px;
+    color: #696675;
+}
+
+.song{
+    display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    padding: 10px;
+    margin-bottom: 16px;
+    border-radius: 8px;
 }
 
-.sign-in::before, .sign-in::after{
-    content: "";
-    flex: 1;
-    height:1px;
-    background:#16131A;
+.album{
+    width: 45px;
+    height: 45px;
+    font-size: 30px;
+}
+
+.song-info{
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+    flex:1;
+    min-width: 0;
+}
+
+.song-info h4{
+    margin:0;
+    font-size:10px;
+    font-weight: 700;
+}
+
+.song-info p{
+    margin: 0;
+    font-size:8px;
+    color: #696675;
+}
+
+.follow{
+    padding: 5px 10px;
+    border: 1px solid #16131A;
+    border-radius: 999px;
+    background: white;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 10px;
+}
+
+.play{
+    display:grid;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    place-items: center;
+    padding: 0 0 0 2px;
+    border: none;
+    border-radius: 50%;
+    background: #2D4BFF;
+    color: white;
+    font-size: 20px;
+}
+
+.caption{
+    margin: 0 0 20px;
+    color:#16131A;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 16px;
+    letter-spacing: -0.3px;
+}
+
+.post-head{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    margin-bottom: 20px;
+}
+
+.post-foot{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-top: 14px;
+    border-top: 1px solid;
+    border-color: #2D4BFF;
+    font-size: 10px;
+}
+
+.votes{
+    padding: 6px 10px;
+    border: 1px solid;
+    border-color: #2D4BFF;
+    color:#2D4BFF;
+    font-size: 10px;
+}
+
+.save{
+    margin-left: auto;
+    font-size: 17px;
 }
