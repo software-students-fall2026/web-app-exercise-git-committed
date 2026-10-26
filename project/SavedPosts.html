@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonder - Saved Posts</title>
-    <link rel="stylesheet" href="saved.css">
+    <link rel="stylesheet" href="/savedPosts.css">
 </head>
 
 <body>
@@ -14,25 +14,24 @@
     <aside>
         <h2>sonder</h2>
 
-
         <nav>
             <ul>
-                <li><a href="generalFeed.html">General Feed</a></li>
-                <li><a href="following.html">Following</a></li>
-                <li><a href="exploreFeed.html">Explore</a></li>
-                <li><a href="community.html">Communities</a></li>
-                <li><a href="savedPosts.html">Saved Posts</a></li>
-                <li><a href="profilePage.html">Profile</a></li>
+                <li><a href="/feed">General Feed</a></li>
+                <li><a href="/following">Following</a></li>
+                <li><a href="/explore">Explore</a></li>
+                <li><a href="/communities">Communities</a></li>
+                <li><a href="/saved">Saved Posts</a></li>
+                <li><a href="/profile">Profile</a></li>
             </ul>
         </nav>
-        
 
-        <button type="button">Post a song</button>
+        <button type="button" onclick="window.location.href='/create-post'">
+            Post a song
+        </button>
     </aside>
 
     <main>
 
-        
         <header>
             <h1>Saved for later</h1>
             <p>
@@ -41,99 +40,111 @@
             </p>
         </header>
 
-      
-        <section>
+        <section class="saved-categories">
             <h2>Saved Categories</h2>
 
             <nav>
                 <ul>
-                    <li><a href="#">All</a></li>
-                    <li><a href="#">Late night</a></li>
-                    <li><a href="#">Study music</a></li>
-                    <li><a href="#">Running songs</a></li>
+                    <li><a href="/saved">All</a></li>
+
+                    {% for category in saved_categories | default([]) %}
+                    <li>
+                        <a href="/saved?category={{ category['_id'] }}">
+                            {{ category['name'] }}
+                        </a>
+                    </li>
+                    {% endfor %}
                 </ul>
             </nav>
 
-            <button type="button">Add new collection</button>
+            <button type="button" onclick="addCollection()">
+                Add new collection
+            </button>
         </section>
 
-
-        <section>
+        <section class="saved-posts">
             <h2>Saved Posts</h2>
 
-            <article>
-                <h3>[Username]</h3>
-                <p>Saved song post</p>
+            {% for post in saved_posts | default([]) %}
 
-                <h4>Yellow</h4>
-                <p>By Coldplay</p>
+            {% set song = post.get("song", {}) %}
+            {% if song is not mapping %}
+                {% set song = {} %}
+            {% endif %}
 
-                <audio controls>
-                    <source src="yellow.mp3" type="audio/mpeg">
-                </audio>
-
-                <p>
-                    play this one with the windows down.
-                </p>
-
-                <button type="button">Like</button>
-                <button type="button">Comment</button>
-                <button type="button">Unsave</button>
-            </article>
+            {% set title = post.get("song_title") or post.get("title") or song.get("title") or "Untitled Song" %}
+            {% set artist = post.get("artist") or post.get("artist_name") or song.get("artist") or "Unknown Artist" %}
+            {% set caption = post.get("caption") or post.get("description") or post.get("content") or "" %}
+            {% set username = post.get("username") or post.get("author_username") or "User" %}
 
             <article>
-                <h3>[Username]</h3>
+                <h3>@{{ username }}</h3>
                 <p>Saved song post</p>
 
-                <h4>Good Days</h4>
-                <p>By SZA</p>
+                <h4>{{ title }}</h4>
+                <p>By {{ artist }}</p>
 
-                <audio controls>
-                    <source src="good-days.mp3" type="audio/mpeg">
-                </audio>
+                <a href="https://open.spotify.com/search/{{ (title ~ ' ' ~ artist)|urlencode }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Listen on Spotify
+                </a>
 
-                <p>
-                    rotating this before every exam.
-                    it works, trust.
-                </p>
+                {% if caption %}
+                <p>{{ caption }}</p>
+                {% endif %}
 
-                <button type="button">Like</button>
-                <button type="button">Comment</button>
-                <button type="button">Unsave</button>
+                <div class="post-actions">
+                    <button type="button" onclick="toggleLike(this)">Like</button>
+                    <button type="button" onclick="toggleSave(this)">Saved</button>
+                </div>
             </article>
+
+            {% else %}
+
+            <article>
+                <p>No saved posts yet.</p>
+            </article>
+
+            {% endfor %}
         </section>
 
-        <section>
+        <section class="saved-songs">
             <h2>Saved Songs</h2>
             <p>Your saved songs in one place.</p>
 
             <ul>
-                <li>
-                    <p>Yellow - Coldplay</p>
-                    <button type="button">Play</button>
-                </li>
+                {% for post in saved_posts | default([]) %}
+
+                {% set song = post.get("song", {}) %}
+                {% if song is not mapping %}
+                    {% set song = {} %}
+                {% endif %}
+
+                {% set title = post.get("song_title") or post.get("title") or song.get("title") or "Untitled Song" %}
+                {% set artist = post.get("artist") or post.get("artist_name") or song.get("artist") or "Unknown Artist" %}
 
                 <li>
-                    <p>Motion Sickness - Phoebe Bridgers</p>
-                    <button type="button">Play</button>
+                    <p>{{ title }} - {{ artist }}</p>
+
+                    <a href="https://open.spotify.com/search/{{ (title ~ ' ' ~ artist)|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Listen on Spotify
+                    </a>
                 </li>
 
-                <li>
-                    <p>Good Days - SZA</p>
-                    <button type="button">Play</button>
-                </li>
+                {% else %}
 
                 <li>
-                    <p>Ribs - Lorde</p>
-                    <button type="button">Play</button>
+                    <p>No saved songs yet.</p>
                 </li>
+
+                {% endfor %}
             </ul>
-
-            <button type="button">Play all saved songs</button>
         </section>
 
-
-        <section>
+        <section class="privacy-note">
             <p>
                 Your saved posts are private.
                 Only you can see what you've saved.
@@ -141,6 +152,53 @@
         </section>
 
     </main>
+
+    <script>
+        function toggleLike(button) {
+            if (button.textContent.trim() === "Like") {
+                button.textContent = "Liked";
+            } else {
+                button.textContent = "Like";
+            }
+        }
+
+        function toggleSave(button) {
+            if (button.textContent.trim() === "Save") {
+                button.textContent = "Saved";
+            } else {
+                button.textContent = "Save";
+            }
+        }
+
+        async function addCollection() {
+            let name = prompt("Enter a name for your new collection:");
+
+            if (!name || name.trim() === "") {
+                return;
+            }
+
+            try {
+                let response = await fetch("/saved/categories", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: name.trim()
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Could not save collection");
+                }
+
+                window.location.reload();
+
+            } catch (error) {
+                alert("Could not save your collection. Please try again.");
+            }
+        }
+    </script>
 
 </body>
 </html>
