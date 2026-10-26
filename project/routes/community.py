@@ -2,7 +2,6 @@ import datetime
 from bson.objectid import ObjectId
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
-from app import app  
 
 community_bp = Blueprint('community', __name__)
 
@@ -29,8 +28,6 @@ def communities_page():
     return render_template("community.html",
                            featured=communities[0] if communities else None,
                            communities=communities[1:])
-
-# app.view_functions["communities"] = communities_page
 
 @community_bp.post("/communities/new")
 @login_required
