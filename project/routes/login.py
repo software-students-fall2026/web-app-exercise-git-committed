@@ -1,7 +1,10 @@
 from flask import Blueprint, redirect, render_template, request, url_for
-from flask_login import login_user, logout_user
-from werkzeug.security import check_password_hash
-from app import User 
+from flask_login import UserMixin, login_user, logout_user
+from werkzeug.security import check_password_hash 
+
+class LoginUser(UserMixin):
+    def __init__(self, doc):
+        self.id = str(doc["_id"])
 
 login_bp = Blueprint('login', __name__)
 
@@ -21,8 +24,8 @@ def login_submit():
  
     if found and found.get("password_hash") and \
             check_password_hash(found["password_hash"], password):
-        login_user(User(found))
-        return redirect(url_for("general_feed"))
+        login_user(LoginUser(found))
+        return redirect(url_for("general_feed.general_feed"))
  
     return render_template("login.html", error="Wrong username or password.")
  
