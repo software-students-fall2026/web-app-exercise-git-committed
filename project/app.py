@@ -14,12 +14,14 @@ from routes.generalFeed import general_feed_bp
 from routes.settings import settings_bp
 from routes.register import register_bp
 from routes.savedPosts import saved_bp, saved_posts
+from routes.CreatePost import create_post_bp
 
 load_dotenv()
 
 app = Flask(__name__, template_folder=".")
 app.register_blueprint(register_bp)
 app.register_blueprint(saved_bp)
+app.register_blueprint(create_post_bp)
 project_folder = Path(app.root_path)
 app.jinja_loader = ChoiceLoader([
     app.jinja_loader,
@@ -111,13 +113,6 @@ def register():
 @app.get("/exploreFeed.html")
 def explore():
     return render_template("exploreFeed.html")
-
-
-@app.get("/create-post")
-@app.get("/createPost.html")
-def create_post():
-    return render_template("createPost.html")
-
 
 @app.get("/profile")
 @app.get("/profilePage.html")
