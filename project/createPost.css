@@ -60,6 +60,7 @@ aside nav li {
 
 main {
     flex: 1;
+    min-width: 0;
     padding: 40px;
 }
 
@@ -77,7 +78,8 @@ main header p {
 }
 
 form {
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
     background-color: white;
     border: 1px solid #d9d5cc;
     border-radius: 16px;
@@ -123,4 +125,43 @@ button {
     border: 1px solid #d9d5cc;
     border-radius: 16px;
     padding: 24px;
+}
+
+@media (max-width: 700px) {
+    body {
+        display: block;
+    }
+
+    aside {
+        width: 100%;
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid #d9d5cc;
+    }
+
+    main {
+        padding: 20px 16px;
+    }
+
+    aside nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 8px;
+    }
+
+    aside nav li {
+        margin-bottom: 0;
+    }
+
+    .nav-item {
+        padding: 8px;
+    }
+
+    .body, .columns {
+        display: block;
+    }
+
+    .rail {
+        margin-top: 24px;
+    }
 }

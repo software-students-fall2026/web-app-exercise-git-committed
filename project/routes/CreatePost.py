@@ -13,7 +13,7 @@ from database import db
 create_post_bp = Blueprint("create_post", __name__)
 
 CAPTION_LIMIT = 200
-SPOTIFY_TRACK = re.compile(r"https://open\.spotify\.com/track/[A-Za-z0-9]{22}")
+SPOTIFY_TRACK = re.compile(r"https://open\.spotify\.com/track/[A-Za-z0-9]{22}(?:\?[^\s]*)?")
 
 
 def get_communities():

@@ -32,7 +32,8 @@
                 {% if featured %}
                 <div class="featured">
                     <span class="icon">#</span>
-                    <form method="POST" action="{{url_for('leave_community' if featured.joined else 'join_community', community_id=featured.id)}}">
+                    <form method="POST" action="{{url_for('community.leave_community' if featured.joined else 'community.join_community', community_id=featured.id)}}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button class="join">{{"Joined" if featured.joined else "Join"}}</button>
                     </form>
                     <h2>r/{{featured.name}}</h2>
@@ -48,7 +49,8 @@
                         <h3>r/{{c.name}}</h3>
                         <small>{{c.member_count}} members</small>
                         <p>{{c.description}}</p>
-                        <form method="POST" action="{{url_for('leave_community' if c.joined else 'join_community', community_id=c.id)}}">
+                        <form method="POST" action="{{url_for('community.leave_community' if c.joined else 'community.join_community', community_id=c.id)}}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button class="join">{{"Joined" if c.joined else "Join"}}</button>
                         </form>
                     </div>

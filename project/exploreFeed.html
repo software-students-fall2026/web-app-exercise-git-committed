@@ -75,8 +75,9 @@
                 <span class="post-community">{{ post.community.name }}</span>
                 {% endif %}
               </div>
-              <form action="/follow" method="post">
-                <input type="hidden" name="following_id" value="{{ post.author_id }}">
+              <form action="{{ url_for('general_feed.follow', user_id=post.author_id) }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="action" value="follow">
                 <button class="btn btn-secondary btn-sm" type="submit">Follow</button>
               </form>
             </header>
@@ -98,12 +99,17 @@
             {% endif %}
 
             <footer class="post-footer">
-              <form class="vote" action="/posts/{{ post._id }}/vote" method="post">
-                <button type="submit" aria-pressed="{{ 'true' if post.upvoted else 'false' }}">Upvote</button>
+              <form class="vote" action="{{ url_for('general_feed.vote', post_id=post._id) }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="action" value="{{ 'unvote' if post.upvoted else 'vote' }}">
+                <button type="submit" aria-pressed="{{ 'true' if post.upvoted else 'false' }}">{{ 'Remove upvote' if post.upvoted else 'Upvote' }}</button>
                 <span class="vote-count">{{ post.upvote_count }}</span>
               </form>
-              <form action="/posts/{{ post._id }}/save" method="post">
-                <button class="save-btn" type="submit" aria-pressed="{{ 'true' if post.saved else 'false' }}">{{ 'Saved' if post.saved else 'Save' }}</button>
+              <form action="{{ url_for('saved.save_post', post_id=post._id) }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="action" value="{{ 'unsave' if post.saved else 'save' }}">
+                <input type="hidden" name="return_to" value="{{ request.path }}">
+                <button class="save-btn" type="submit" aria-pressed="{{ 'true' if post.saved else 'false' }}">{{ 'Unsave' if post.saved else 'Save' }}</button>
               </form>
             </footer>
           </article>

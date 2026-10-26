@@ -54,6 +54,9 @@
         <div class="body">
 
             <form class="card post-form" id="postForm" action="/create-post" method="post" enctype="multipart/form-data">
+                {% if error %}
+                <p role="alert">{{ error }}</p>
+                {% endif %}
 
                 <section>
                     <h3><span class="step">1</span> Choose a song</h3>
@@ -74,7 +77,7 @@
                     </label>
 
                     <label class="dropzone">
-                        <input type="file" id="audio" name="audio" accept=".mp3,.m4a" hidden>
+                        <input type="file" id="audio" name="audio_file" accept=".mp3,.m4a" hidden>
                         <strong id="audioName">or upload an audio clip</strong>
                         <span>MP3 or M4A, up to 10 MB</span>
                     </label>
