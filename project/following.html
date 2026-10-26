@@ -32,12 +32,12 @@
     <aside class="sidebar">
       <a class="brand" href="{{ url_for('welcome') }}" aria-label="Sonder home"><span class="wordmark">sonder</span><span class="overline brand-tagline">Music from real people</span></a>
       <nav class="main-nav" aria-label="Main navigation">
-        {% for endpoint, label, image in [('general_feed.general_feed', 'General feed', 'house'), ('general_feed.following', 'Following', 'following'), ('explore', 'Explore', 'explore'), ('communities', 'Communities', 'communities'), ('saved', 'Saved', 'saved'), ('profile', 'Profile', 'profile')] %}
+        {% for endpoint, label, image in [('general_feed.general_feed', 'General feed', 'house'), ('general_feed.following', 'Following', 'following'), ('explore.explore', 'Explore', 'explore'), ('communities', 'Communities', 'communities'), ('saved', 'Saved', 'saved'), ('profile.profile', 'Profile', 'profile')] %}
           <a href="{{ url_for(endpoint) }}" class="nav-item {{ 'is-active' if request.endpoint == endpoint else '' }}" {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ icon(image) }}<span>{{ label }}</span></a>
         {% endfor %}
         <a href="{{ url_for('settings.settings') }}" class="nav-item {{ 'is-active' if request.blueprint == 'settings' else '' }}" {% if request.blueprint == 'settings' %}aria-current="page"{% endif %}><span class="nav-symbol" aria-hidden="true">⚙</span><span>Settings</span></a>
       </nav>
-      <a class="button button-primary sidebar-post" href="{{ url_for('create_post') }}">Post a song</a>
+      <a class="button button-primary sidebar-post" href="{{ url_for('create_post.create_post') }}">Post a song</a>
       <div class="sidebar-footer">
         {% if current_user.is_authenticated %}
           <a class="viewer" href="{{ url_for('settings.settings') }}">{{ avatar(current_user.display_name or current_user.username, current_user.profile_picture_url) }}<span class="viewer-meta"><strong>{{ current_user.display_name or current_user.username }}</strong><span>@{{ current_user.username }}</span></span></a>
@@ -81,7 +81,7 @@
             <a class="tab {{ 'is-active' if sort == 'top' else '' }}" href="{{ url_for(request.endpoint, q=query, people=people_query, sort='top') }}">Most upvoted</a>
           </nav>
           {% if not following_only %}
-            <div class="composer">{{ avatar(current_user.username if current_user.is_authenticated else '♪', current_user.profile_picture_url if current_user.is_authenticated else '') }}<p>What song is stuck in your head today?</p><a class="button button-primary" href="{{ url_for('create_post') }}">Post a song</a></div>
+            <div class="composer">{{ avatar(current_user.username if current_user.is_authenticated else '♪', current_user.profile_picture_url if current_user.is_authenticated else '') }}<p>What song is stuck in your head today?</p><a class="button button-primary" href="{{ url_for('create_post.create_post') }}">Post a song</a></div>
           {% endif %}
           {% if query %}<p class="search-description">Results for “{{ query }}”</p>{% endif %}
           <div class="post-list">

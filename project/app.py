@@ -2,7 +2,7 @@ import hmac
 import os
 import secrets
 from pathlib import Path
-
+from routes.profilePage import profile_bp
 from bson import ObjectId
 from bson.errors import InvalidId
 from dotenv import load_dotenv
@@ -28,6 +28,7 @@ app.register_blueprint(login_bp)
 app.register_blueprint(community_bp)
 app.register_blueprint(create_post_bp)
 app.register_blueprint(explore_bp)
+app.register_blueprint(profile_bp)
 project_folder = Path(app.root_path)
 app.jinja_loader = ChoiceLoader([
     app.jinja_loader,
@@ -114,10 +115,6 @@ def login():
 def register():
     return render_template("register.html")
 
-@app.get("/profile")
-@app.get("/profilePage.html")
-def profile():
-    return render_template("profilePage.html")
 
 
 @app.get("/saved.html")
