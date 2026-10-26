@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communities</title>
+    <link rel="stylesheet" href="community.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>sonder</h2>
+        <small>MUSIC FROM REAL PEOPLE</small>
+
+        <a href="generalFeed.html" class="btn-link">General Feed</a>
+        <a href="following.html" class="btn-link">Following</a>
+        <a href="exploreFeed.html" class="btn-link">Explore</a>
+        <a href="community.html" class="btn-link">Communities</a>
+        <a href="saved.html" class="btn-link">Saved</a>
+        <a href="profilePage.html" class="btn-link">Profile</a>
+        <a href="createPost.html" class="btn-link">Post a song</a>
+
+        {% if current_user.is_authenticated %}
+            <p>{{current_user.display_name}}</p>
+            <small>@{{current_user.username}}</small>
+        {% else %}
+            <p><a href="/login">Log in</a></p>
+        {% endif %}
+    </div>
+        <div class="layout">
+            <div>
+                {% if featured %}
+                <div class="featured">
+                    <span class="icon">#</span>
+                    <form method="POST" action="{{url_for('leave_community' if featured.joined else 'join_community', community_id=featured.id)}}">
+                        <button class="join">{{"Joined" if featured.joined else "Join"}}</button>
+                    </form>
+                    <h2>r/{{featured.name}}</h2>
+                    <p>{{featured.member_count}} members</p>
+                    <p>{{featured.description}}</p>
+                </div>
+                {% endif %}
+
+                <div class="communities" id="communityList">
+                    {% for c in communities %}
+                    <div class="card">
+                        <span class="icon">#</span>
+                        <h3>r/{{c.name}}</h3>
+                        <small>{{c.member_count}} members</small>
+                        <p>{{c.description}}</p>
+                        <form method="POST" action="{{url_for('leave_community' if c.joined else 'join_community', community_id=c.id)}}">
+                            <button class="join">{{"Joined" if c.joined else "Join"}}</button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div>
+                <div class="panel">
+                    <small>ARTIST SPOTLIGHT</small>
+                    <p>
+                        <span class="artist"></span>
+                        <strong style="font-size: 24px">Mitski</strong>
+                    </p>
+
+                    <p>Indie rock · 4.2k fans</p>
+                    <p>Japanese-American songwriter known for raw, cinematic songs about longing. Started recording as a 
+                      student at SUNY Purchase; Be the Cowboy (2018) broke her wide open.</p>
+                    <h3>Popular songs</h3>
+
+                    <p>Washing Machine Heart
+                        <button type="button" onclick="playSong('Washing Machine Heart')">Play</button>
+                    </p>
+
+                    <p>Nobody
+                      <button type="button" onclick="playSong('Nobody')">Play</button>
+                    </p>
+
+                    <p>My Love Mine All Mine
+                      <button type="button" onclick="playSong('My Love Mine All Mine')">Play</button>
+                    </p>
+
+                    <button type="button" onclick="alert('Joined r/mitski!')">Join r/mitski</button>
+
+                    <button type="button" onclick="alert('Mitski artist biography')">Read full bio</button>
+                </div>
+
+                <div class="panel">
+                    <h2>Show meetups</h2>
+                    <p>Members going to upcoming concerts</p>
+
+                    <h3>Mitski</h3>
+                    <h4>OCT 24</h4>
+                    <p>The Anthem</p>
+                    <p>14 going</p>
+                    <button type="button" onclick="joinMeetup(this)">Join meetup</button>
+
+                    <h3>Clairo</h3>
+                    <h4>NOV 8</h4>
+                    <p>9:30 Club</p>
+                    <p>6 going</p>
+                    <button type="button" onclick="joinMeetup(this)">Join meetup</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function join(button) {
+            if (button.innerText === "Join") {
+                button.innerText = "Joined";
+            } else {
+                button.innerText = "Join";
+            }
+        }
+
+        function searchCommunities() {
+            var searchText = document.getElementById("search").value.toLowerCase();
+
+            var cards = document.querySelectorAll("#communityList .card");
+
+            cards.forEach(function(card) {
+                if (card.innerText.toLowerCase().includes(searchText)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function joinMeetup(button) {
+            if (button.innerText === "Join meetup") {
+                button.innerText = "Going!";
+            } else {
+                button.innerText = "Join meetup";
+            }
+        }
+    </script>
+
+</body>

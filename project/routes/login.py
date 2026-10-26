@@ -1,4 +1,33 @@
-import flask
+from flask import redirect, render_template, request, url_for
+from flask_login import login_user, logout_user
+from werkzeug.security import check_password_hash
+from app import User, app 
+ 
+@app.post("/login")
+@app.post("/login.html")
+def login_submit():
+    from database import users_collection
 
-app = flask.Flask(__name__)
-app.secret_key = 'super secret string'  # Change this!
+    username = request.form.get("username", "").strip()
+    password = request.form.get("password", "")
+ 
+    found = users_collection.find_one({"$or": [
+        {"username": username},         
+        {"username": username.lower()},
+        {"email": username.lower()},     
+    ]})
+ 
+    if found and found.get("password_hash") and \
+            check_password_hash(found["password_hash"], password):
+        login_user(User(found))
+        return redirect(url_for("general_feed"))
+ 
+    return render_template("login.html", error="Wrong username or password.")
+ 
+@app.get("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
+ 
+if __name__ == "__main__":
+    app.run(debug=True, host="127.0.0.1", port=5000)
