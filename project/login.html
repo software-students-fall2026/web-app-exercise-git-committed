@@ -7,18 +7,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="login.css">
     <title>Sonder</title>
 </head>
 <body>
     <div class="login-page">
         <div class="left-side">
             <h1>"play this one with the windows down."</h1>
-            <h6>jules.wav passed along</h6>
-            <p>Ivy - Frank Ocean · Oct 12,2026</p>
+            <div class="card">
+                <div class="user green"></div>
+                <div class="info">
+                    <h6>jules.wav passed along</h6>
+                    <p>Ivy - Frank Ocean · Oct 12,2026</p>
+                </div>
+            </div>
         </div>
         <div class="right-side">
             <div class="logo">
+                <div class="user green"></div>
                 <h2>sonder</h2>
             </div>
             <h1>Welcome back</h1>
@@ -30,20 +36,8 @@
                 </div>
                 {% if error %}<p class="error">{{ error }}</p>{% endif %}
                 <button class="buttonDesign log-button">Log In</button>
-                <p class="sign-in">OR</p>
-                <div class="continue-button">
-                    <button class="buttonDesign" id="google" disabled>
-                        Continue with Google
-                    </button>
-                    <button class="buttonDesign" id="apple" disabled>
-                        Continue with Apple
-                    </button>
-                    <button class="buttonDesign" id="spotify" disabled>
-                        Continue with Spotify
-                    </button>
-                </div>
             </form>
-            <p>New to Sonder? <a href="register.html">Create an account</a> </p>
+            <p>New to Sonder? <a href="/register">Create an account</a> </p>
         </div>
     </div>
 </body>
