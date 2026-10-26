@@ -17,6 +17,7 @@ from routes.savedPosts import saved_bp, saved_posts
 from routes.login import login_bp
 from routes.community import community_bp
 from routes.CreatePost import create_post_bp
+from routes.exploreFeed import explore_bp
 
 load_dotenv()
 
@@ -26,6 +27,7 @@ app.register_blueprint(saved_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(community_bp)
 app.register_blueprint(create_post_bp)
+app.register_blueprint(explore_bp)
 project_folder = Path(app.root_path)
 app.jinja_loader = ChoiceLoader([
     app.jinja_loader,
@@ -111,12 +113,6 @@ def login():
 @app.get("/register.html")
 def register():
     return render_template("register.html")
-
-
-@app.get("/explore")
-@app.get("/exploreFeed.html")
-def explore():
-    return render_template("exploreFeed.html")
 
 @app.get("/profile")
 @app.get("/profilePage.html")
