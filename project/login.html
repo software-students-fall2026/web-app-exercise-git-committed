@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
     <title>Sonder</title>
 </head>
 <body>
@@ -23,22 +23,13 @@
             </div>
             <h1>Welcome back</h1>
             <p>Pick up where your people left off</p>
-            <form class="login-form">
-                <input
-                    type="text"
-                    placeholder="Username"
-                    class="login-input"
-                />
+            <form class="login-form" method="POST" action="/login">
+                <input type="text" name="username" placeholder="Username" class="login-input" required />
                 <div class="password-wrapper">
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        class="login-input password-input"
-                    />
+                    <input type="password" name="password" placeholder="Password" class="login-input password-input" required />
                 </div>
-                <button class="buttonDesign log-button" >
-                    Log In
-                </button>
+                {% if error %}<p class="error">{{ error }}</p>{% endif %}
+                <button class="buttonDesign log-button">Log In</button>
                 <p class="sign-in">OR</p>
                 <div class="continue-button">
                     <button class="buttonDesign" id="google" disabled>
