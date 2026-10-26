@@ -1,10 +1,12 @@
-from flask import redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import login_user, logout_user
 from werkzeug.security import check_password_hash
-from app import User, app 
- 
-@app.post("/login")
-@app.post("/login.html")
+from app import User 
+
+login_bp = Blueprint('login', __name__)
+
+@login_bp.post("/login")
+@login_bp.post("/login.html")
 def login_submit():
     from database import users_collection
 
@@ -24,7 +26,7 @@ def login_submit():
  
     return render_template("login.html", error="Wrong username or password.")
  
-@app.get("/logout")
+@login_bp.get("/logout")
 def logout():
     logout_user()
     return redirect(url_for("login"))

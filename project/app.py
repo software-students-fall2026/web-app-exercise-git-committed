@@ -14,12 +14,16 @@ from routes.generalFeed import general_feed_bp
 from routes.settings import settings_bp
 from routes.register import register_bp
 from routes.savedPosts import saved_bp, saved_posts
+from routes.login import login_bp
+from routes.community import community_bp
 
 load_dotenv()
 
 app = Flask(__name__, template_folder=".")
 app.register_blueprint(register_bp)
 app.register_blueprint(saved_bp)
+app.register_blueprint(login_bp)
+app.register_blueprint(community_bp)
 project_folder = Path(app.root_path)
 app.jinja_loader = ChoiceLoader([
     app.jinja_loader,

@@ -12,13 +12,13 @@
         <h2>sonder</h2>
         <small>MUSIC FROM REAL PEOPLE</small>
 
-        <a href="generalFeed.html" class="btn-link">General Feed</a>
-        <a href="following.html" class="btn-link">Following</a>
-        <a href="exploreFeed.html" class="btn-link">Explore</a>
-        <a href="community.html" class="btn-link">Communities</a>
-        <a href="saved.html" class="btn-link">Saved</a>
-        <a href="profilePage.html" class="btn-link">Profile</a>
-        <a href="createPost.html" class="btn-link">Post a song</a>
+        <a href="/feed" class="btn-link">General Feed</a>
+        <a href="/following" class="btn-link">Following</a>
+        <a href="/explore" class="btn-link">Explore</a>
+        <a href="/communities" class="btn-link">Communities</a>
+        <a href="/saved" class="btn-link">Saved</a>
+        <a href="/profile" class="btn-link">Profile</a>
+        <a href="/create-post" class="btn-link">Post a song</a>
 
         {% if current_user.is_authenticated %}
             <p>{{current_user.display_name}}</p>

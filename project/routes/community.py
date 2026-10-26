@@ -1,15 +1,17 @@
 import datetime
 from bson.objectid import ObjectId
-from flask import redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from app import app  
+
+community_bp = Blueprint('community', __name__)
 
 def get_db():
     from database import users_collection
     return users_collection.database
 
 def go_back():
-    return redirect(request.referrer or url_for("communities"))
+    return redirect(request.referrer or url_for("community.communities_page"))
 
 def communities_page():
     db = get_db()
@@ -28,9 +30,9 @@ def communities_page():
                            featured=communities[0] if communities else None,
                            communities=communities[1:])
 
-app.view_functions["communities"] = communities_page
+# app.view_functions["communities"] = communities_page
 
-@app.post("/communities/new")
+@community_bp.post("/communities/new")
 @login_required
 def create_community():
     db = get_db()
@@ -52,7 +54,7 @@ def create_community():
         })
     return go_back()
 
-@app.post("/communities/<community_id>/join")
+@community_bp.post("/communities/<community_id>/join")
 @login_required
 def join_community(community_id):
     db = get_db()
@@ -63,7 +65,7 @@ def join_community(community_id):
         db["community_memberships"].insert_one(membership)
     return go_back()
 
-@app.post("/communities/<community_id>/leave")
+@community_bp.post("/communities/<community_id>/leave")
 @login_required
 def leave_community(community_id):
     get_db()["community_memberships"].delete_one(
