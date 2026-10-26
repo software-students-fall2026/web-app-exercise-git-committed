@@ -15,7 +15,7 @@ from routes.settings import settings_bp
 from routes.register import register_bp
 from routes.savedPosts import saved_bp, saved_posts
 from routes.login import login_bp
-from routes.community import community_bp
+from routes.community import community_bp, communities_page
 from routes.CreatePost import create_post_bp
 from routes.exploreFeed import explore_bp
 
@@ -57,13 +57,21 @@ def form_tokens():
         if "csrf_token" not in session:
             session["csrf_token"] = secrets.token_urlsafe(32)
         return session["csrf_token"]
-    return {"csrf_token": csrf_token}
+    context = {"csrf_token": csrf_token}
+    if request.endpoint == "profile.profile" and current_user.is_authenticated:
+        from database import saves_collection
+
+        context["saved_post_ids"] = set(saves_collection.distinct(
+            "post_id", {"user_id": ObjectId(current_user.id)}
+        ))
+    return context
 
 
 @app.before_request
 def check_form_token():
     if (
-        request.blueprint in {"general_feed", "settings"}
+        (request.blueprint in {"general_feed", "settings", "community"}
+         or request.endpoint == "saved.save_post")
         and request.method == "POST"
         and current_user.is_authenticated
     ):
@@ -125,10 +133,10 @@ def saved():
     return saved_posts()
 
 
-@app.get("/communities")
+@app.get("/communities", endpoint="community.communities_page")
 @app.get("/community.html")
 def communities():
-    return render_template("community.html")
+    return communities_page()
 
 
 @app.get("/<filename>.css")

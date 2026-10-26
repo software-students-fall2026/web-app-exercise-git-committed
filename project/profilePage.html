@@ -107,7 +107,12 @@
 
                     <div class="post-actions">
                         <button type="button" onclick="toggleLike(this)">Like</button>
-                        <button type="button" onclick="toggleSave(this)">Save</button>
+                        <form method="post" action="{{ url_for('saved.save_post', post_id=post._id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="action" value="{{ 'unsave' if post._id in saved_post_ids else 'save' }}">
+                            <input type="hidden" name="return_to" value="{{ request.path }}">
+                            <button type="submit">{{ 'Unsave' if post._id in saved_post_ids else 'Save' }}</button>
+                        </form>
                     </div>
                 </article>
 
@@ -164,13 +169,6 @@
             }
         }
 
-        function toggleSave(button) {
-            if (button.textContent.trim() === "Save") {
-                button.textContent = "Saved";
-            } else {
-                button.textContent = "Save";
-            }
-        }
     </script>
 
 </body>
