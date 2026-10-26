@@ -26,6 +26,38 @@ aside nav li {
     margin-bottom: 20px;
 }
 
+.nav-item {
+    display: block;
+    padding: 12px;
+    color: black;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    background-color: #e3e8ff;
+}
+
+.btn {
+    display: block;
+    padding: 12px;
+    border-radius: 999px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #3679ff;
+    color: white;
+}
+
+.me {
+    margin-top: 20px;
+}
+
+.me span {
+    display: block;
+}
+
 main {
     flex: 1;
     padding: 40px;
