@@ -1,12 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sonder - Profile</title>
-        <link rel="stylesheet" href="profilePage.css">
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonder - Profile</title>
+    <link rel="stylesheet" href="/profilePage.css">
+</head>
+
 <body>
 
     <aside>
@@ -14,118 +16,162 @@
 
         <nav>
             <ul>
-                <li><a href="generalFeed.html">General Feed</a></li>
-                <li><a href="following.html">Following</a></li>
-                <li><a href="exploreFeed.html">Explore</a></li>
-                <li><a href="community.html">Communities</a></li>
-                <li><a href="savedPosts.html">Saved</a></li>
-                <li><a href="profilePage.html">Profile</a></li>
+                <li><a href="/feed">General Feed</a></li>
+                <li><a href="/following">Following</a></li>
+                <li><a href="/explore">Explore</a></li>
+                <li><a href="/communities">Communities</a></li>
+                <li><a href="/saved">Saved Posts</a></li>
+                <li><a href="/profile">Profile</a></li>
             </ul>
         </nav>
-        
 
-        <button type="button">Post a song</button>
+        <button type="button" onclick="window.location.href='/create-post'">
+            Post a song
+        </button>
     </aside>
 
     <main>
 
         <section>
-            <header>
+            <header></header>
 
-                <h1>[First Name]</h1>
-                <p>[Username]</p>
+            <section class="profile-info">
+                <div class="profile-picture"></div>
 
-                <p>
-                    Music lover. Always looking for new songs
-                    and people to share them with.
-                </p>
+                <div>
+                    <h1>
+                        {{ user.get("display_name") or
+                           ((user.get("first_name", "") ~ " " ~ user.get("last_name", ""))|trim)
+                           or user.get("username", "") }}
+                    </h1>
 
-                <button type="button">Follow</button>
-                <button type="button">Message</button>
-                <button type="button">More</button>
-            </header>
+                    <p>{{ user.get("username", "") }}</p>
 
-        
+                    <p>
+                        {{ user.get("bio") or
+                           "Music lover. Always looking for new songs and people to share them with." }}
+                    </p>
+
+                    <button type="button" id="followButton" onclick="toggleFollow()">
+                        Follow
+                    </button>
+                </div>
+            </section>
+
             <section>
                 <h2>Profile Stats</h2>
 
-                <p>128 Posts</p>
-                <p>1,204 Followers</p>
-                <p>311 Following</p>
-                <p>61.9k Likes</p>
-                <p>6 Communities</p>
+                <div class="stats">
+                    <p>{{ posts|length }} Posts</p>
+                    <p>{{ followers }} Followers</p>
+                    <p>{{ following }} Following</p>
+                </div>
             </section>
         </section>
 
-  
-        <nav>
-            <ul>
-                <li><a href="#">Posts</a></li>
-                <li><a href="#">Saved</a></li>
-                <li><a href="#">Communities</a></li>
-                <li><a href="#">Shares</a></li>
-            </ul>
-        </nav>
+        <div class="profile-tabs">
+            <a href="/profile">Posts</a>
+            <a href="/saved">Saved</a>
+            <a href="/communities">Communities</a>
+        </div>
 
-   
-        <section>
-            <h2>Posts</h2>
+        <div class="profile-content">
 
-            <article>
-                <h3>Motion Sickness</h3>
-                <p>By Phoebe Bridgers</p>
+            <section class="profile-posts">
+                <h2>Posts</h2>
 
-                <audio controls>
-                    <source src="motion-sickness.mp3" type="audio/mpeg">
-                </audio>
+                {% for post in posts %}
 
-                <p>
-                    the bridge at 2:14 lives in my head
-                    rent free. headphones on, lights off.
-                </p>
+                {% set song = post.get("song", {}) %}
+                {% if song is not mapping %}
+                    {% set song = {} %}
+                {% endif %}
 
-                <button type="button">Like</button>
-                <button type="button">Comment</button>
-                <button type="button">Save</button>
-            </article>
+                {% set title = post.get("song_title") or post.get("title") or song.get("title") or "Untitled Song" %}
+                {% set artist = post.get("artist") or post.get("artist_name") or song.get("artist") or "Unknown Artist" %}
+                {% set caption = post.get("caption") or post.get("description") or post.get("content") or "" %}
 
-            <article>
-                <h3>Washing Machine Heart</h3>
-                <p>By Mitski</p>
+                <article>
+                    <h3>{{ title }}</h3>
+                    <p>By {{ artist }}</p>
 
-                <audio controls>
-                    <source src="washing-machine-heart.mp3" type="audio/mpeg">
-                </audio>
+                    <a href="https://open.spotify.com/search/{{ (title ~ ' ' ~ artist)|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Listen on Spotify
+                    </a>
 
-                <button type="button">Like</button>
-                <button type="button">Comment</button>
-                <button type="button">Save</button>
-            </article>
-        </section>
+                    {% if caption %}
+                    <p>{{ caption }}</p>
+                    {% endif %}
 
-    
-        <section>
-            <h2>Music Taste</h2>
+                    <div class="post-actions">
+                        <button type="button" onclick="toggleLike(this)">Like</button>
+                        <button type="button" onclick="toggleSave(this)">Save</button>
+                    </div>
+                </article>
 
-            <h3>Favorite Genres</h3>
-            <ul>
-                <li>Indie Rock</li>
-                <li>Alternative</li>
-                <li>R&B</li>
-            </ul>
+                {% else %}
 
-            <h3>On Repeat</h3>
-            <ul>
-                <li>Motion Sickness - Phoebe Bridgers</li>
-                <li>Good Days - SZA</li>
-                <li>Washing Machine Heart - Mitski</li>
-            </ul>
+                <article>
+                    <p>No posts yet.</p>
+                </article>
 
-            <h3>Going To</h3>
-            <p>Upcoming concerts and music events</p>
-        </section>
+                {% endfor %}
+            </section>
+
+            <section class="music-taste">
+                <h2>Music Taste</h2>
+
+                <h3>Favorite Genres</h3>
+                <ul>
+                    {% for genre in user.get("favorite_genres") or ["Indie Rock", "Alternative", "R&B"] %}
+                    <li>{{ genre }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>On Repeat</h3>
+                <ul>
+                    {% for song in user.get("on_repeat") or ["Motion Sickness - Phoebe Bridgers", "Good Days - SZA", "Washing Machine Heart - Mitski"] %}
+                    <li>{{ song }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Going To</h3>
+                <p>{{ user.get("going_to") or "Upcoming concerts and music events" }}</p>
+            </section>
+
+        </div>
 
     </main>
+
+    <script>
+        function toggleFollow() {
+            let button = document.getElementById("followButton");
+
+            if (button.textContent.trim() === "Follow") {
+                button.textContent = "Following";
+            } else {
+                button.textContent = "Follow";
+            }
+        }
+
+        function toggleLike(button) {
+            if (button.textContent.trim() === "Like") {
+                button.textContent = "Liked";
+            } else {
+                button.textContent = "Like";
+            }
+        }
+
+        function toggleSave(button) {
+            if (button.textContent.trim() === "Save") {
+                button.textContent = "Saved";
+            } else {
+                button.textContent = "Save";
+            }
+        }
+    </script>
 
 </body>
 </html>
