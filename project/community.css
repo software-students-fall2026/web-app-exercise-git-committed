@@ -4,8 +4,8 @@
 
 body {
     margin: 0;
-    background: #f5f5f5;
-    color: #000;
+    background: #f6f3ed;
+    color: #151218;
     font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
     line-height: 1.45;
@@ -23,7 +23,7 @@ button {
 
 small {
     font-size: 12px;
-    color: #777;
+    color: #77727f;
 }
 
 .sidebar {
@@ -34,7 +34,7 @@ small {
     width: 250px;
     padding: 16px 24px;
     background: #fff;
-    border-right: 1px solid #dcdcdc;
+    border-right: 1px solid #dedbd4;
     display: flex;
     flex-direction: column;
 }
@@ -46,7 +46,7 @@ small {
 
 .sidebar > small {
     display: block;
-    margin: 2px 4px 16px;
+    margin: 6px 4px;
     font-weight: 500;
 }
 
@@ -54,14 +54,14 @@ small {
     display: block;
     padding: 16px;
     margin-bottom: 4px;
-    color: #000;
+    color: #151218;
     font-weight: 500;
     text-decoration: none;
 }
 
 .btn-link:hover,
 .btn-link[href="community.html"] {
-    background: #e8e8e8;
+    background: #e5e8ff;
 }
 
 .btn-link[href="community.html"] {
@@ -70,38 +70,38 @@ small {
 
 .btn-link[href="/post/new"] {
     margin-top: 24px;
-    background: #3d3d3d;
+    background: #3478f6;
     color: #fff;
     text-align: center;
     font-weight: 600;
 }
 
 .btn-link[href="/post/new"]:hover {
-    background: #000;
+    background: #151218;
 }
 
 .btn-link[href="createPost.html"] {
     margin-top: 24px;
-    background: #3d3d3d;
+    background: #3478f6;
     color: #fff;
     text-align: center;
     font-weight: 600;
 }
 
 .btn-link[href="createPost.html"]:hover {
-    background: #000;
+    background: #151218;
 }
 
 .sidebar > p {
     margin-top: auto;
     padding: 8px 16px;
-    background: #e8e8e8;
+    background: #e5e8ff;
     font-weight: 600;
 }
 
 .sidebar > p + small {
-    padding: 0 16px 8px;
-    background: #e8e8e8;
+    padding: 4px 16px;
+    background: #e5e8ff;
 }
 
 .main {
@@ -113,7 +113,7 @@ small {
 .main > small {
     display: block;
     font-weight: 500;
-    color: #555;
+    color: #77727f;
 }
 
 .main > h1 {
@@ -123,7 +123,7 @@ small {
 
 .main > h1 + p {
     max-width: 560px;
-    color: #777;
+    color: #77727f;
     font-size: 17px;
 }
 
@@ -134,7 +134,7 @@ small {
     width: 340px;
     padding: 16px;
     background: #fff;
-    border: 1px solid #dcdcdc;
+    border: 1px solid #dedbd4;
     font: inherit;
     outline: none;
 }
@@ -149,17 +149,17 @@ small {
     padding: 12px 18px;
     background: transparent;
     border: none;
-    color: #555;
+    color: #77727f;
     font-size: 16px;
     font-weight: 500;
 }
 
 .main > p:has(button) button:hover {
-    background: #e8e8e8;
+    background: #e5e8ff;
 }
 
 .main > p:has(button) button:nth-child(2) {
-    background: #111;
+    background: #151218;
     color: #fff;
 }
 
@@ -177,7 +177,7 @@ small {
     align-items: center;
     margin-bottom: 16px;
     padding: 24px;
-    background: #1b1b1b;
+    background: #151218;
     color: #fff;
 }
 
@@ -187,7 +187,7 @@ small {
     grid-row: 1;
     font-size: 12px;
     font-weight: 600;
-    color: #bdbdbd;
+    color: #d9d4df;
 }
 
 .featured .icon {
@@ -195,8 +195,8 @@ small {
     grid-row: 1 / 4;
     width: 56px;
     height: 56px;
-    background: #e2e2e2;
-    border-color: #e2e2e2;
+    background: #eaff4f;
+    border-color: #eaff4f;
 }
 
 .featured h2 {
@@ -210,14 +210,14 @@ small {
     grid-column: 2;
     grid-row: 3;
     font-size: 12px;
-    color: #d4d4d4;
+    color: #d9d4df;
 }
 
 .featured .join {
     grid-column: 3;
     grid-row: 1 / 4;
-    background: #d2d2d2;
-    color: #111;
+    background: #9b5cf6;
+    color: #151218;
 }
 
 .featured .join:hover {
@@ -229,7 +229,7 @@ small {
     grid-row: 4;
     margin-top: 16px;
     font-size: 16px;
-    color: #eaeaea;
+    color: #f6f3ed;
 }
 
 .communities {
@@ -246,7 +246,7 @@ small {
     min-height: 230px;
     padding: 22px;
     background: #fff;
-    border: 1px solid #dcdcdc;
+    border: 1px solid #dedbd4;
 }
 
 .card .icon {
@@ -266,7 +266,7 @@ small {
 .card p {
     grid-column: 1 / -1;
     margin-top: 18px;
-    color: #777;
+    color: #77727f;
     font-size: 16px;
 }
 
@@ -281,21 +281,21 @@ small {
     justify-content: center;
     width: 52px;
     height: 52px;
-    background: #e8e8e8;
-    border: 1.5px solid #111;
+    background: #e5e8ff;
+    border: 1.5px solid #151218;
     font-size: 26px;
 }
 
 .join {
     padding: 9px 20px;
-    background: #3d3d3d;
+    background: #3478f6;
     color: #fff;
     border: none;
     font-weight: 600;
 }
 
 .join:hover {
-    background: #000;
+    background: #151218;
 }
 
 .card form, .featured form {display: contents;}
@@ -304,7 +304,7 @@ small {
     margin-bottom: 24px;
     padding: 24px;
     background: #fff;
-    border: 1px solid #dcdcdc;
+    border: 1px solid #dedbd4;
 }
 
 .panel h2 {
@@ -318,7 +318,7 @@ small {
 .panel small {
     display: block;
     font-weight: 600;
-    color: #555;
+    color: #77727f;
 }
 
 .panel small + p {
@@ -331,19 +331,19 @@ small {
     flex: none;
     width: 68px;
     height: 68px;
-    background: #d4d4d4;
+    background: #ffbfd0;
 }
 
 .panel small + p + p {
     font-size: 13px;
-    color: #777;
+    color: #77727f;
 }
 
 .panel small + p + p + p {
     margin: 14px 0 20px;
     font-size: 16px;
     line-height: 1.5;
-    color: #333;
+    color: #302d35;
 }
 
 .panel p:has(> button) {
@@ -352,7 +352,7 @@ small {
     justify-content: space-between;
     gap: 12px;
     padding: 12px 0;
-    border-top: 1px solid #e8e8e8;
+    border-top: 1px solid #e5e8ff;
     font-weight: 500;
 }
 
@@ -361,7 +361,7 @@ small {
     width: 38px;
     height: 38px;
     padding: 0;
-    background: #3d3d3d;
+    background: #345cff;
     color: #fff;
     border: none;
     font-size: 0;
@@ -373,26 +373,26 @@ small {
 }
 
 .panel p > button:hover {
-    background: #000;
+    background: #151218;
 }
 
 .panel > button {
     margin: 16px 12px 0 0;
     padding: 10px 18px;
-    background: #3d3d3d;
+    background: #3478f6;
     color: #fff;
     border: none;
     font-weight: 600;
 }
 
 .panel > button:hover {
-    background: #000;
+    background: #151218;
 }
 
 .panel > button[onclick*="biography"] {
     padding-left: 0;
     background: transparent;
-    color: #111;
+    color: #151218;
 }
 
 .panel > button[onclick*="biography"]:hover {
@@ -423,7 +423,7 @@ small {
 
 .panel:last-child > p {
     font-size: 14px;
-    color: #777;
+    color: #77727f;
 }
 
 .panel:last-child > p:nth-child(2) {
@@ -436,8 +436,8 @@ small {
     grid-row: span 3;
     width: 56px;
     padding: 8px 4px;
-    background: #e8e8e8;
-    border: 1.5px solid #111;
+    background: #e5e8ff;
+    border: 1.5px solid #151218;
     text-align: center;
     font-size: 13px;
     line-height: 1.2;
@@ -448,13 +448,13 @@ small {
     grid-row: span 3;
     margin: 0;
     background: transparent;
-    color: #111;
-    border: 1.5px solid #111;
+    color: #151218;
+    border: 1.5px solid #151218;
     font-weight: 500;
 }
 
 .panel:last-child > button:hover {
-    background: #111;
+    background: #151218;
     color: #fff;
 }
 
