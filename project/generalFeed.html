@@ -32,7 +32,7 @@
     <aside class="sidebar">
       <a class="brand" href="{{ url_for('welcome') }}" aria-label="Sonder home"><span class="wordmark">sonder</span><span class="overline brand-tagline">Music from real people</span></a>
       <nav class="main-nav" aria-label="Main navigation">
-        {% for endpoint, label, image in [('general_feed.general_feed', 'General feed', 'house'), ('general_feed.following', 'Following', 'following'), ('explore', 'Explore', 'explore'), ('communities', 'Communities', 'communities'), ('saved', 'Saved', 'saved'), ('profile', 'Profile', 'profile')] %}
+        {% for endpoint, label, image in [('general_feed.general_feed', 'General feed', 'house'), ('general_feed.following', 'Following', 'following'), ('explore.explore', 'Explore', 'explore'), ('communities', 'Communities', 'communities'), ('saved', 'Saved', 'saved'), ('profile.profile', 'Profile', 'profile')] %}
           <a href="{{ url_for(endpoint) }}" class="nav-item {{ 'is-active' if request.endpoint == endpoint else '' }}" {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ icon(image) }}<span>{{ label }}</span></a>
         {% endfor %}
         <a href="{{ url_for('settings.settings') }}" class="nav-item {{ 'is-active' if request.blueprint == 'settings' else '' }}" {% if request.blueprint == 'settings' %}aria-current="page"{% endif %}><span class="nav-symbol" aria-hidden="true">⚙</span><span>Settings</span></a>
