@@ -14,11 +14,17 @@
     <div class="page reg-page">
         <div class="left-side">
             <h1>Find the people who already love the songs you haven't heard yet</h1>
-            <h6>maya.k matched with you</h6>
-            <p>92% taste match - Phoebe Bridgers, Mitski</p>
+            <div class="card">
+                <div class="user green"></div>
+                <div class="info">
+                    <h6>maya.k matched with you</h6>
+                    <p>92% taste match - Phoebe Bridgers, Mitski</p>
+                </div>
+            </div>
         </div>
         <div class="right-side">
             <div class="logo">
+                <div class="user green"></div>
                 <h2>sonder</h2>
             </div>
             <h1>Create your account</h1>
@@ -27,12 +33,12 @@
                     <p class="{{ category }}" role="alert"> {{ message }}</p>
                 {% endfor %}
             {% endwith %}
-            <form class="login-form" action="/api/register" method="POST">
+            <form class="reg-form" action="/api/register" method="POST">
                 <input
                     type="text"
                     name = 'display_name'
                     placeholder="Display name"
-                    class="login-input"
+                    class="reg-input"
                     autocomplete="name"
                     required
                 />
@@ -40,7 +46,7 @@
                     type="text"
                     name = 'username'
                     placeholder="Username"
-                    class="login-input"
+                    class="reg-input"
                     autocomplete="username"
                     required
                 />
@@ -48,7 +54,7 @@
                     type="text"
                     name = 'email'
                     placeholder="School email"
-                    class="login-input"
+                    class="reg-input"
                     autocomplete="email"
                     required
                 />
@@ -57,7 +63,7 @@
                         type="password"
                         name="password"
                         placeholder="Password"
-                        class="login-input password-input"
+                        class="reg-input password-input"
                         autocomplete="new-password"
                         minlength="8"
                         required
@@ -67,7 +73,7 @@
                     Create account
                 </button>
             </form>
-            <p><a href="login.html">Log in</a> · <a href="appScreen.html">Back to welcome</a></p>
+            <p><a href="/login">Log in</a> · <a href="/">Back to welcome</a></p>
         </div>
     </div>
 </body>

@@ -1,9 +1,19 @@
+body{
+    margin: 0;
+    height:100vh;
+    overflow: hidden;
+    background:#F6F4EF;
+    color:#16131A;
+    font-family: "Instrument Sans", sans-serif;
+}
+
 .reg-page {
     display: flex;
-    width: 100%;
-    gap: 40px;
-    min-height: 100vh;
-    background-color: #F6F4EF;
+    width:100%;
+    gap: 30px;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
 }
 
 .left-side, .right-side{
@@ -12,28 +22,75 @@
 }
 
 .left-side{
-    background-color: #FFC9D6;
+    background: #FFC9D6;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5%;
+    flex:1;
+    min-width: 0;
 }
 
-h1, h2{
+.left-side h1{
     font-family: "Bricolage Grotesque", sans-serif;
-    font-weight: 800;
-    font-size: 45px;
-    line-height: 76px;
-    letter-spacing: -2.16px;
+    font-size: 42px;
+    line-height: 0.95;
+    letter-spacing: -1.5px;
+    margin:0 0 25px;
 }
 
-p, h6{
-    font-family: "Instrument Sans", sans-serif;
+.card{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+.info h6{
+    margin: 0;
     font-size: 13px;
-    font-weight: 400;
-    line-height: 28px;
-    letter-spacing: 0px;
+}
+
+.info p{
+    margin: 3px 0 0;
+    font-size: 12px;
+}
+
+.right-side{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3% 0 0;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 20px;
+}
+
+.logo .user{
+    width: 15px;
+    height: 15px;
+}
+
+.logo h2{
+    margin: 0;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 27px;
+}
+
+.left-side h1{
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 28px;
+    line-height: 76px;
+    letter-spacing: -0.5px;
+    margin:0 0 22px;
 }
 
 .buttonDesign{
-     font-family: "Instrument Sans", sans-serif;
-    font-size: 16px;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 15px;
     font-weight: 600;
     line-height: 20px;
     letter-spacing: 0px;
@@ -45,4 +102,38 @@ p, h6{
 .reg-button{
     background-color: #2D4BFF;
     color:white;
+    margin-top: 2px;
+}
+.green{
+    background:#E8FF5A
+}
+
+.user{
+    width: 29px;
+    height: 29px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.reg-form{
+    display: flex;
+    flex-direction: column;
+    gap:17px;
+}
+
+.reg-input{
+    width: 100%;
+    font-family: "Instrument Sans", sans-serif;
+    height: 47px;
+    padding:0 15px;
+    border: 1px solid;
+    border-color: #16131A;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 14px;
+}
+
+a{
+    text-decoration: none;
+    font-weight: 600;
 }
