@@ -54,7 +54,7 @@ main > section:first-child {
 }
 
 header {
-    background-color: #304cff;
+    background-color: #2D4BFF;
     height: 110px;
 }
 
@@ -109,7 +109,7 @@ main > nav a {
 }
 
 main > nav a:hover {
-    color: #304cff;
+    color: #2D4BFF;
 }
 
 article {
@@ -142,7 +142,7 @@ main > section:last-child {
 }
 
 button {
-    background-color: #3478ff;
+    background-color: #2D4BFF;
     color: white;
     border: none;
     border-radius: 20px;
@@ -151,7 +151,7 @@ button {
 }
 
 button:hover {
-    background-color: #2459d9;
+    background-color: #2D4BFF;
 }
 
 .profile-info {
@@ -195,7 +195,7 @@ button:hover {
 }
 
 .profile-tabs a:hover {
-    color: #4169e1;
+    color: #2D4BFF;
     text-decoration: underline;
 }
 
@@ -228,7 +228,7 @@ article a:hover {
 
 .music-taste h3 {
     font-size: 22px;
-    color: #3478ff;
+    color: #2D4BFF;
     margin-top: 25px;
     margin-bottom: 15px;
 }

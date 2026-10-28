@@ -46,7 +46,7 @@ main {
 }
 
 main > header {
-    background-color: #4169e1;
+    background-color: #2D4BFF;
     color: white;
     padding: 35px 40px;
     border-radius: 20px;
@@ -119,7 +119,7 @@ article button {
 }
 
 button {
-    background-color: #3478ff;
+    background-color: #2D4BFF;
     color: white;
     border: none;
     border-radius: 20px;
@@ -128,7 +128,7 @@ button {
 }
 
 button:hover {
-    background-color: #2459d9;
+    background-color: #2D4BFF;
 }
 
 .saved-songs {
@@ -174,7 +174,7 @@ button:hover {
 }
 
 .post-actions button {
-    background-color: #3478ff;
+    background-color: #2D4BFF;
     color: white;
     border: none;
     border-radius: 20px;
@@ -183,7 +183,7 @@ button:hover {
 }
 
 .post-actions button:hover {
-    background-color: #245bd1;
+    background-color: #2D4BFF;
 }
 
 article a {
